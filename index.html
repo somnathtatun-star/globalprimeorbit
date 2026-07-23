@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tells browsers (esp. Android Chrome's auto dark-theme for web content)
+       that this site is already dark-themed by design, so they stop trying
+       to auto-recolor form controls like inputs. Without this, Chrome's
+       "force dark" heuristic can silently override the search input's text
+       and placeholder color - the div wrapper renders fine since it isn't
+       a form control, but the input's own text becomes invisible. -->
+  <meta name="color-scheme" content="dark">
   <title>GLOBAL PRIME ORBIT | B2B Import-Export & Wholesale Trading Company in Asansol, West Bengal, India</title>
   <meta name="description" content="GLOBAL PRIME ORBIT is a B2B import-export and wholesale trading company based in Asansol, West Bengal, India, supplying agro commodities, textiles & handloom sarees, handicrafts, jewellery, and home décor to buyers across India, UAE, Europe, USA, and Asia Pacific. Request a bulk quote today.">
   <meta name="keywords" content="B2B import export company, wholesale trading company Asansol, B2B supplier West Bengal, agro commodities exporter India, handloom sarees wholesale, handicrafts exporter, bulk trading company near me, global trade partner India">
@@ -269,7 +276,14 @@
     <p class="tagline">Products Worldwide with Quality &amp; Trust</p>
     <p class="tagline">Flourishing Together with Global Trade</p>
     <div class="home-search-wrap">
-      <i class="fa-solid fa-magnifying-glass"></i>
+      <!-- Inline SVG instead of a Font Awesome glyph: an icon webfont has
+           no visible fallback if the CDN is slow/blocked, so on a flaky
+           mobile connection this icon could silently never appear. SVG
+           has no external dependency, so it's always there. -->
+      <svg class="home-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
       <input type="text" id="homeProductSearch" placeholder="Search products...">
     </div>
     <div id="homeSearchResults" class="search-results home-search-results"></div>

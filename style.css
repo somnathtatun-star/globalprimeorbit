@@ -4,6 +4,7 @@
    Type: Fraunces (display) / Work Sans (body) / IBM Plex Mono (labels & data)
    ========================================================================== */
 :root {
+  color-scheme: dark;
   --ink:        #0E2233;   /* deep indigo-navy — night sky / trust */
   --ink-soft:   #16324A;
   --ink-2:      #123047;
@@ -364,7 +365,10 @@ nav ul li a.active {
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 100%;
+  /* Matches #productSearch's sizing exactly (60%, capped at 460px) so the
+     two search bars behave identically at every screen width instead of
+     each having their own separate, drifting set of rules. */
+  width: 60%;
   max-width: 460px;
   margin: 26px auto 0;
   padding: 13px 22px;
@@ -377,24 +381,40 @@ nav ul li a.active {
   border-color: var(--saffron);
   background: rgba(247,242,233,0.1);
 }
-.home-search-wrap i {
+.home-search-wrap i,
+.home-search-wrap .home-search-icon {
   color: var(--saffron);
   font-size: 0.95rem;
   flex-shrink: 0;
 }
+.home-search-wrap .home-search-icon {
+  width: 17px;
+  height: 17px;
+}
 .home-search-wrap input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   outline: none;
   color: var(--text-on-ink);
+  /* Belt-and-suspenders alongside the color-scheme meta tag: forces the
+     actual glyph color so no browser's native/auto-dark form styling can
+     silently override it, and strips OS default input chrome that could
+     otherwise paint over our custom transparent background. */
+  -webkit-text-fill-color: var(--text-on-ink);
+  -webkit-appearance: none;
+  appearance: none;
   font-family: var(--font-body);
   /* Must stay >= 16px: any smaller and iOS Safari auto-zooms the whole
      viewport on focus, which is what made the search bar look oversized
      and pushed out of the home section on mobile. */
   font-size: 16px;
 }
-.home-search-wrap input::placeholder { color: var(--text-on-ink-soft); }
+.home-search-wrap input::placeholder {
+  color: var(--text-on-ink-soft);
+  opacity: 1;
+}
 .home-search-results {
   max-width: 460px;
   margin: 14px auto 0;
@@ -730,9 +750,12 @@ nav ul li a.active {
   font-family: var(--font-body);
   background: rgba(247,242,233,0.06);
   color: var(--text-on-ink);
+  -webkit-text-fill-color: var(--text-on-ink);
+  -webkit-appearance: none;
+  appearance: none;
   transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
 }
-#productSearch::placeholder { color: var(--text-on-ink-soft); }
+#productSearch::placeholder { color: var(--text-on-ink-soft); opacity: 1; }
 #productSearch:focus {
   outline: none;
   border-color: var(--saffron);
@@ -885,6 +908,8 @@ nav ul li a.active {
   }
   .products-gallery img { max-width: 100px; }
   #productSearch { width: 90%; }
+  .home-search-wrap { width: 90%; }
+  .home-search-results { max-width: 90%; }
 }
 
 /* ===========================
@@ -2071,8 +2096,6 @@ nav ul li a.active {
   .cosmic-title { font-size: 2.1rem; }
   .logo-container { width: 150px; }
   .tagline { font-size: 1.02rem; }
-  .home-search-wrap { max-width: 92%; }
-  .home-search-results { max-width: 92%; }
   .about, .services, .products, .faq, .why-us, .contact,
   .industries, .export-process, .quality-assurance, .global-presence { padding-top: 70px; padding-bottom: 70px; }
   .stats-band { padding: 40px 20px; }
