@@ -43,6 +43,11 @@
    =========================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Belt-and-suspenders: on a page this long, any one element overflowing
+   its container by even a few px would let the whole page scroll
+   sideways on mobile, which is far more jarring than the one element
+   itself. This guarantees that can never happen, regardless of cause. */
+html, body { overflow-x: hidden; max-width: 100%; }
 
 /* ===========================
    Scroll performance
