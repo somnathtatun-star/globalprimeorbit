@@ -122,15 +122,21 @@
         <source src="videos/mobile/Ship.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Ship.mp4" type="video/mp4">
       </video>
-      <video class="video-slide" muted loop playsinline preload="auto">
+      <!-- Only the active slide preloads eagerly. The other three used
+           preload="auto", so the browser was fetching all four full videos
+           at once on page load - the main cause of slow/janky scrolling
+           right after landing. These now stay at "metadata" (just enough
+           to know duration/dimensions) until goToSlide() upgrades the
+           next one shortly before it's shown. -->
+      <video class="video-slide" muted loop playsinline preload="metadata">
         <source src="videos/mobile/Factory.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Factory.mp4" type="video/mp4">
       </video>
-      <video class="video-slide" muted loop playsinline preload="auto">
+      <video class="video-slide" muted loop playsinline preload="metadata">
         <source src="videos/mobile/Quality.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Quality.mp4" type="video/mp4">
       </video>
-      <video class="video-slide" muted loop playsinline preload="auto">
+      <video class="video-slide" muted loop playsinline preload="metadata">
         <source src="videos/mobile/Packaging.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Packaging.mp4" type="video/mp4">
       </video>
@@ -162,6 +168,17 @@
       const SLIDE_DURATION = 5000; // 5 seconds per slide, then auto-advance
       let timer = null;
 
+      // Upgrade a slide from preload="metadata" to a real, playable load.
+      // Called for the next slide ahead of time so it's already buffered
+      // by the time goToSlide() switches to it.
+      function primeSlide(index) {
+        const v = slides[index];
+        if (v.preload !== "auto") {
+          v.preload = "auto";
+          v.load();
+        }
+      }
+
       function goToSlide(index) {
         slides[current].classList.remove("active");
         slides[current].pause();
@@ -169,11 +186,15 @@
 
         current = index;
 
+        primeSlide(current);
         slides[current].classList.add("active");
         slides[current].currentTime = 0;
         slides[current].play().catch(() => {});
         dots[current].classList.add("active");
         caption.textContent = captions[current];
+
+        // Get a head start on the slide after this one.
+        primeSlide((current + 1) % slides.length);
       }
 
       function nextSlide() {
@@ -240,7 +261,7 @@
   <!-- Hero content -->
   <div class="hero-content">
     <div class="logo-container">
-      <video class="logo-video" autoplay loop muted playsinline>
+      <video class="logo-video" autoplay loop muted playsinline preload="auto" fetchpriority="high">
         <source src="videos/logo.webm" type="video/webm">
       </video>
     </div>
@@ -256,19 +277,19 @@
     <div class="trade-route-marquee" aria-hidden="true">
       <div class="trade-route-track" id="tradeRouteTrack">
         <div class="trade-route-set">
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/in.png" alt="" loading="lazy" decoding="async"><span>INDIA</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/ae.png" alt="" loading="lazy" decoding="async"><span>UAE</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/eu.png" alt="" loading="lazy" decoding="async"><span>EUROPE</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/us.png" alt="" loading="lazy" decoding="async"><span>USA</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/sg.png" alt="" loading="lazy" decoding="async"><span>SINGAPORE</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/gb.png" alt="" loading="lazy" decoding="async"><span>UK</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/de.png" alt="" loading="lazy" decoding="async"><span>GERMANY</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/sa.png" alt="" loading="lazy" decoding="async"><span>SAUDI&nbsp;ARABIA</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/au.png" alt="" loading="lazy" decoding="async"><span>AUSTRALIA</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/jp.png" alt="" loading="lazy" decoding="async"><span>JAPAN</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/za.png" alt="" loading="lazy" decoding="async"><span>SOUTH&nbsp;AFRICA</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/bd.png" alt="" loading="lazy" decoding="async"><span>BANGLADESH</span></span><i class="fa-solid fa-arrow-right-long"></i>
-          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/np.png" alt="" loading="lazy" decoding="async"><span>NEPAL</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/in.png" alt="" decoding="async"><span>INDIA</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/ae.png" alt="" decoding="async"><span>UAE</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/eu.png" alt="" decoding="async"><span>EUROPE</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/us.png" alt="" decoding="async"><span>USA</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/sg.png" alt="" decoding="async"><span>SINGAPORE</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/gb.png" alt="" decoding="async"><span>UK</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/de.png" alt="" decoding="async"><span>GERMANY</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/sa.png" alt="" decoding="async"><span>SAUDI&nbsp;ARABIA</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/au.png" alt="" decoding="async"><span>AUSTRALIA</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/jp.png" alt="" decoding="async"><span>JAPAN</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/za.png" alt="" decoding="async"><span>SOUTH&nbsp;AFRICA</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/bd.png" alt="" decoding="async"><span>BANGLADESH</span></span><i class="fa-solid fa-arrow-right-long"></i>
+          <span class="route-stop"><img class="flag-icon" src="https://flagcdn.com/w40/np.png" alt="" decoding="async"><span>NEPAL</span></span><i class="fa-solid fa-arrow-right-long"></i>
           <span class="route-stop"><span class="flag-icon flag-emoji">🌏</span><span>ASIA&nbsp;PACIFIC</span></span><i class="fa-solid fa-arrow-right-long"></i>
         </div>
         <div class="trade-route-set">

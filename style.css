@@ -310,6 +310,10 @@ nav ul li a.active {
   width: 200px;
   margin: 0 auto 12px;
   overflow: hidden;
+  /* Reserves the logo's footprint before the video has loaded, so it
+     doesn't appear as a jarring pop-in / layout jump once it does.
+     Adjust this ratio if the actual logo isn't roughly square. */
+  aspect-ratio: 1 / 1;
 }
 .logo-video {
   width: 100%;
@@ -385,7 +389,10 @@ nav ul li a.active {
   outline: none;
   color: var(--text-on-ink);
   font-family: var(--font-body);
-  font-size: 0.98rem;
+  /* Must stay >= 16px: any smaller and iOS Safari auto-zooms the whole
+     viewport on focus, which is what made the search bar look oversized
+     and pushed out of the home section on mobile. */
+  font-size: 16px;
 }
 .home-search-wrap input::placeholder { color: var(--text-on-ink-soft); }
 .home-search-results {
@@ -718,7 +725,8 @@ nav ul li a.active {
   max-width: 460px;
   border: 1px solid rgba(227,160,8,0.4);
   border-radius: 999px;
-  font-size: 0.98rem;
+  /* Must stay >= 16px: below that, iOS Safari zooms the page on focus. */
+  font-size: 16px;
   font-family: var(--font-body);
   background: rgba(247,242,233,0.06);
   color: var(--text-on-ink);
