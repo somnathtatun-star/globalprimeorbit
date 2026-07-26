@@ -36,7 +36,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">   <!-- main site styles -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome is loaded non-render-blocking: the page's own text,
+       images, and layout can paint immediately instead of waiting on this
+       third-party stylesheet first. The icons themselves still swap in
+       within a moment - this just stops them holding up everything else,
+       which was adding to the overall "everything appears late" feel,
+       especially on slower mobile connections. -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
   <!-- Structured data: helps Google understand this is a local B2B trading business,
        which is what surfaces the site for "B2B near me" / "import export company near me" searches -->
@@ -78,7 +85,7 @@
   <!-- Header -->
   <header>
     <div class="logo-group">
-      <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img">
+      <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img" width="46" height="46" fetchpriority="high" decoding="async">
       <div class="logo-text">
         <span class="logo">GLOBAL PRIME ORBIT</span>
         <span class="logo-subtitle">IMPORT EXPORT TRADE</span>
@@ -1277,60 +1284,60 @@ const PRODUCTS_DATA = {
     <p class="global-presence-intro">Headquartered in Asansol, West Bengal, India — trading with partners across the following countries and regions.</p>
     <div class="regions-grid">
       <div class="region-card region-card-hq">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/in.png" alt="India flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/in.png" alt="India flag">
         <span class="region-name">India</span>
         <span class="region-hq-label">Headquarters</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/ae.png" alt="UAE flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/ae.png" alt="UAE flag">
         <span class="region-name">United Arab Emirates</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/sg.png" alt="Singapore flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/sg.png" alt="Singapore flag">
         <span class="region-name">Singapore</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/gb.png" alt="UK flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/gb.png" alt="UK flag">
         <span class="region-name">United Kingdom</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/us.png" alt="USA flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/us.png" alt="USA flag">
         <span class="region-name">United States</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/de.png" alt="Germany flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/de.png" alt="Germany flag">
         <span class="region-name">Germany</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/fr.png" alt="France flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/fr.png" alt="France flag">
         <span class="region-name">France</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/sa.png" alt="Saudi Arabia flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/sa.png" alt="Saudi Arabia flag">
         <span class="region-name">Saudi Arabia</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/au.png" alt="Australia flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/au.png" alt="Australia flag">
         <span class="region-name">Australia</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/jp.png" alt="Japan flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/jp.png" alt="Japan flag">
         <span class="region-name">Japan</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/za.png" alt="South Africa flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/za.png" alt="South Africa flag">
         <span class="region-name">South Africa</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/bd.png" alt="Bangladesh flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/bd.png" alt="Bangladesh flag">
         <span class="region-name">Bangladesh</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/np.png" alt="Nepal flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/np.png" alt="Nepal flag">
         <span class="region-name">Nepal</span>
       </div>
       <div class="region-card">
-        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/my.png" alt="Malaysia flag">
+        <img class="region-flag" width="76" height="50" loading="lazy" decoding="async" src="https://flagcdn.com/w160/my.png" alt="Malaysia flag">
         <span class="region-name">Malaysia</span>
       </div>
     </div>
@@ -1372,7 +1379,7 @@ const PRODUCTS_DATA = {
         <div class="stars">★★★★★<span class="rating-number">4.5/5</span></div>
         <p class="testimonial-text">GLOBAL PRIME ORBIT has been a dependable sourcing partner for our agro imports. Documentation, quality checks, and delivery timelines are always spot on.</p>
         <div class="testimonial-author">
-          <div class="author-avatar"><img src="images/Rashid Al Kaabi.png" alt="Rashid Al Kaabi" loading="lazy" decoding="async"></div>
+          <div class="author-avatar"><img src="images/Rashid Al Kaabi.png" alt="Rashid Al Kaabi" width="42" height="42" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">Rashid Al Kaabi</p>
             <p class="author-role">Procurement Head, Dubai, UAE</p>
@@ -1384,7 +1391,7 @@ const PRODUCTS_DATA = {
         <div class="stars">★★★★★<span class="rating-number">5/5</span></div>
         <p class="testimonial-text">The handloom sarees and handicrafts we ordered arrived exactly as promised — beautiful craftsmanship and consistent quality across every shipment.</p>
         <div class="testimonial-author">
-          <div class="author-avatar"><img src="images/Elena Moreau.png" alt="Elena Moreau" loading="lazy" decoding="async"></div>
+          <div class="author-avatar"><img src="images/Elena Moreau.png" alt="Elena Moreau" width="42" height="42" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">Elena Moreau</p>
             <p class="author-role">Boutique Owner, Paris, France</p>
@@ -1396,7 +1403,7 @@ const PRODUCTS_DATA = {
         <div class="stars">★★★★★<span class="rating-number">4.5/5</span></div>
         <p class="testimonial-text">Professional, transparent, and easy to work with. Their team guided us through export compliance and made international trade genuinely simple.</p>
         <div class="testimonial-author">
-          <div class="author-avatar"><img src="images/James Turner.png" alt="James Turner" loading="lazy" decoding="async"></div>
+          <div class="author-avatar"><img src="images/James Turner.png" alt="James Turner" width="42" height="42" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">James Turner</p>
             <p class="author-role">Import Manager, London, UK</p>
@@ -1408,7 +1415,7 @@ const PRODUCTS_DATA = {
         <div class="stars">★★★★★<span class="rating-number">5/5</span></div>
         <p class="testimonial-text">We've sourced spices, tea, and organic produce from them for over a year now. Fair pricing, honest communication, and reliable global reach.</p>
         <div class="testimonial-author">
-          <div class="author-avatar"><img src="images/Aiko Sato.png" alt="Aiko Sato" loading="lazy" decoding="async"></div>
+          <div class="author-avatar"><img src="images/Aiko Sato.png" alt="Aiko Sato" width="42" height="42" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">Aiko Sato</p>
             <p class="author-role">Trading Partner, Tokyo, Japan</p>
@@ -1817,7 +1824,7 @@ const PRODUCTS_DATA = {
       <!-- Brand block -->
       <div class="footer-brand">
         <div class="logo-group footer-logo-group">
-          <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img">
+          <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img" width="46" height="46" loading="lazy" decoding="async">
           <div class="logo-text">
             <span class="logo">GLOBAL PRIME ORBIT</span>
             <span class="logo-subtitle">IMPORT EXPORT TRADE</span>
@@ -2050,13 +2057,36 @@ const PRODUCTS_DATA = {
 <script>
   const revealEls = document.querySelectorAll(".reveal-up");
 
+  function playReveal(el) {
+    // Two rAFs guarantee the browser has actually painted the hidden
+    // (opacity:0 / translateY) state at least once before we flip the
+    // class. Without this, a section that's already in view the instant
+    // the page opens (like the hero) can have its "is-visible" class
+    // applied in the same frame it's created in - so the browser never
+    // paints anything to transition *from*, and it just appears static
+    // instead of animating up. This is what makes the very first section
+    // animate immediately when the site opens, not just on later scroll.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.classList.add("is-visible");
+      });
+    });
+  }
+
+  // rootMargin's bottom value is positive on purpose: it grows the
+  // trigger zone downward past the actual viewport edge, so a section
+  // starts (and finishes) animating in slightly *before* it scrolls into
+  // view rather than while the user is already looking at it. On slower
+  // mobile devices that lead time is what stops images/logos inside a
+  // section from visibly "popping in late" after you've already scrolled
+  // to them.
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
+      playReveal(entry.target);
       revealObserver.unobserve(entry.target); // animate in once, not on every scroll
     });
-  }, { threshold: 0.12, rootMargin: "0px 0px -80px 0px" });
+  }, { threshold: 0, rootMargin: "0px 0px 120px 0px" });
 
   revealEls.forEach(el => revealObserver.observe(el));
 </script>
