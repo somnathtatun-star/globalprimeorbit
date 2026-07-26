@@ -596,12 +596,16 @@
 	<!-- Modal for Image Popup -->
     <div id="imageModal" class="modal" style="display:none;">
       <span class="close">&times;</span>
-      <img class="modal-content" id="modalImage">
-      <p id="modalCaption"></p>
-      <p id="modalDescription" class="modal-description"></p>
-      <a id="modalWhatsapp" class="modal-whatsapp-btn" href="#" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i> Order Now
-      </a>
+      <div class="product-slide" id="productSlide">
+        <img class="modal-content" id="modalImage" alt="">
+        <div class="product-slide-overlay" id="productSlideOverlay">
+          <p id="modalCaption" class="product-slide-title"></p>
+          <p id="modalDescription" class="modal-description"></p>
+          <a id="modalWhatsapp" class="modal-whatsapp-btn" href="#" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> Order Now
+          </a>
+        </div>
+      </div>
       <p class="modal-swipe-hint">⟵ Swipe to view more ⟶</p>
     </div>
   </div>
@@ -1025,18 +1029,46 @@ const PRODUCTS_DATA = {
     return `${base} Contact us for current availability, packaging options, and pricing.`;
   }
 
-  function showImage() {
+  const productSlide = document.getElementById("productSlide");
+  const productSlideOverlay = document.getElementById("productSlideOverlay");
+
+  // Shows the image+text for currentImages[currentIndex] as a slider
+  // transition: the photo slides/fades in first (from the right when
+  // moving to the next item, from the left when moving back, no
+  // direction on first open), and once that's under way the caption,
+  // description and Order Now button fade up on top of it a beat later -
+  // rather than everything just appearing stacked below the image at once.
+  function showImage(direction) {
     const current = currentImages[currentIndex];
     const productName = current.dataset.name;
+
+    modalImg.classList.remove("is-shown", "slide-from-left", "slide-from-right");
+    productSlideOverlay.classList.remove("is-shown");
+    if (direction === "prev") modalImg.classList.add("slide-from-left");
+    else modalImg.classList.add("slide-from-right");
+    void modalImg.offsetWidth; // force reflow so the removed/re-added classes actually retrigger the transition
+
     modalImg.src = current.src;
+    modalImg.alt = productName;
     modalCaption.textContent = productName;
     modalDescription.textContent = generateProductDescription(productName, current.dataset.sub, current.dataset.category);
     const message = `Hi GLOBAL PRIME ORBIT, I'm interested in "${productName}". Could you share more details and pricing?`;
     modalWhatsapp.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+    const revealSlide = () => {
+      requestAnimationFrame(() => {
+        modalImg.classList.add("is-shown");
+        setTimeout(() => productSlideOverlay.classList.add("is-shown"), 160);
+      });
+    };
+    modalImg.onload = revealSlide;
+    modalImg.onerror = revealSlide;
+    if (modalImg.complete) revealSlide();
+    else setTimeout(revealSlide, 600); // safety net in case load/error never fires
   }
 
-  function showPrevImage() { currentIndex = (currentIndex-1+currentImages.length)%currentImages.length; showImage(); }
-  function showNextImage() { currentIndex = (currentIndex+1)%currentImages.length; showImage(); }
+  function showPrevImage() { currentIndex = (currentIndex-1+currentImages.length)%currentImages.length; showImage("prev"); }
+  function showNextImage() { currentIndex = (currentIndex+1)%currentImages.length; showImage("next"); }
   closeBtn.onclick = () => { closeModal(); };
 
   // Manual slide control: swipe/drag left or right on the image to move
@@ -2053,42 +2085,50 @@ const PRODUCTS_DATA = {
 </script>
 
 <!-- Script for scroll-reveal (sections fade + slide up into view, whether the
-     user scrolls naturally or a nav-link click smooth-scrolls the page there) -->
+     user scrolls naturally or a nav-link click smooth-scrolls the page there).
+     Browsers that support native CSS scroll-driven animations
+     (animation-timeline: view()) get a true scroll-linked fade purely from
+     style.css, with no JS involved at all - so this whole block is skipped
+     there to avoid the two reveal mechanisms fighting each other. -->
 <script>
-  const revealEls = document.querySelectorAll(".reveal-up");
+  const scrollDrivenSupported = window.CSS && CSS.supports && CSS.supports("animation-timeline: view()");
 
-  function playReveal(el) {
-    // Two rAFs guarantee the browser has actually painted the hidden
-    // (opacity:0 / translateY) state at least once before we flip the
-    // class. Without this, a section that's already in view the instant
-    // the page opens (like the hero) can have its "is-visible" class
-    // applied in the same frame it's created in - so the browser never
-    // paints anything to transition *from*, and it just appears static
-    // instead of animating up. This is what makes the very first section
-    // animate immediately when the site opens, not just on later scroll.
-    requestAnimationFrame(() => {
+  if (!scrollDrivenSupported) {
+    const revealEls = document.querySelectorAll(".reveal-up");
+
+    function playReveal(el) {
+      // Two rAFs guarantee the browser has actually painted the hidden
+      // (opacity:0 / translateY) state at least once before we flip the
+      // class. Without this, a section that's already in view the instant
+      // the page opens (like the hero) can have its "is-visible" class
+      // applied in the same frame it's created in - so the browser never
+      // paints anything to transition *from*, and it just appears static
+      // instead of animating up. This is what makes the very first section
+      // animate immediately when the site opens, not just on later scroll.
       requestAnimationFrame(() => {
-        el.classList.add("is-visible");
+        requestAnimationFrame(() => {
+          el.classList.add("is-visible");
+        });
       });
-    });
+    }
+
+    // rootMargin's bottom value is positive on purpose: it grows the
+    // trigger zone downward past the actual viewport edge, so a section
+    // starts (and finishes) animating in slightly *before* it scrolls into
+    // view rather than while the user is already looking at it. On slower
+    // mobile devices that lead time is what stops images/logos inside a
+    // section from visibly "popping in late" after you've already scrolled
+    // to them.
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        playReveal(entry.target);
+        revealObserver.unobserve(entry.target); // animate in once, not on every scroll
+      });
+    }, { threshold: 0, rootMargin: "0px 0px 120px 0px" });
+
+    revealEls.forEach(el => revealObserver.observe(el));
   }
-
-  // rootMargin's bottom value is positive on purpose: it grows the
-  // trigger zone downward past the actual viewport edge, so a section
-  // starts (and finishes) animating in slightly *before* it scrolls into
-  // view rather than while the user is already looking at it. On slower
-  // mobile devices that lead time is what stops images/logos inside a
-  // section from visibly "popping in late" after you've already scrolled
-  // to them.
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      playReveal(entry.target);
-      revealObserver.unobserve(entry.target); // animate in once, not on every scroll
-    });
-  }, { threshold: 0, rootMargin: "0px 0px 120px 0px" });
-
-  revealEls.forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
