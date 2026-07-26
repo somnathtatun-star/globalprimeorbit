@@ -69,8 +69,7 @@
       "https://www.linkedin.com",
       "https://www.facebook.com",
       "https://www.instagram.com",
-      "https://www.twitter.com",
-      "https://www.youtube.com"
+      "https://www.twitter.com"
     ]
   }
   </script>
@@ -78,16 +77,29 @@
 <body>
   <!-- Header -->
   <header>
-    <div class="logo">GLOBAL PRIME ORBIT</div>
+    <div class="logo-group">
+      <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img">
+      <div class="logo-text">
+        <span class="logo">GLOBAL PRIME ORBIT</span>
+        <span class="logo-subtitle">IMPORT EXPORT TRADE</span>
+      </div>
+    </div>
     <nav>
-      <button class="dots-menu-btn" id="dotsMenuBtn" aria-label="Open menu" aria-expanded="false">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <button class="menu-toggle-btn" id="dotsMenuBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
       <ul id="navMenu">
+        <li class="nav-close-item">
+          <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">&times;</button>
+        </li>
         <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#export-process">Process</a></li>
+        <li><a href="#global-presence">Global Research</a></li>
+        <li><a href="#partners">Leadership</a></li>
+        <li><a href="#blog">Our Blog</a></li>
+        <li class="nav-quote-item"><a href="#contact" class="nav-quote-btn">Request a Quote</a></li>
       </ul>
     </nav>
   </header>
@@ -95,6 +107,7 @@
   <script>
     (function () {
       const dotsBtn = document.getElementById("dotsMenuBtn");
+      const closeBtn = document.getElementById("navCloseBtn");
       const navMenu = document.getElementById("navMenu");
 
       function closeMenu() {
@@ -106,6 +119,11 @@
         e.stopPropagation();
         const isOpen = navMenu.classList.toggle("open");
         dotsBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeMenu();
       });
 
       navMenu.querySelectorAll("a").forEach(link => {
@@ -263,8 +281,6 @@
   </script>
   <!-- Home Section -->
  <section id="home" class="home">
-  <!-- Background canvas -->
-  <div id="universe-bg"></div>
   <!-- Hero content -->
   <div class="hero-content">
     <div class="logo-container">
@@ -288,6 +304,25 @@
     </div>
     <div id="homeSearchResults" class="search-results home-search-results"></div>
     <a href="#contact" class="cta-btn">Request a Quote</a>
+    <div class="stats-container home-stats-container">
+      <div class="stat-item">
+        <span class="stat-number">18</span>
+        <span class="stat-label">Product Categories</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">14+</span>
+        <span class="stat-label">Countries &amp; Regions Served</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">168</span>
+        <span class="stat-label">Products Catalogued</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">2</span>
+        <span class="stat-label">Dedicated Trade Partners</span>
+      </div>
+    </div>
+    <p class="trade-route-heading">Trusted by Buyers &amp; Importers Worldwide</p>
     <div class="trade-route-marquee" aria-hidden="true">
       <div class="trade-route-track" id="tradeRouteTrack">
         <div class="trade-route-set">
@@ -326,160 +361,40 @@
     </div>
   </div>
 </section>
-<script>
-  // Loads three.js from the CDN exactly once, however many scenes need it.
-  // A dynamically-injected <script> (instead of a plain blocking
-  // <script src>) means the browser keeps parsing and painting the rest
-  // of the page immediately instead of stalling on this network request -
-  // this was blocking everything below it on page load, which was a real
-  // contributor to the "laggy right after landing" feeling.
-  window.loadThree = window.loadThree || function () {
-    if (window.__threePromise) return window.__threePromise;
-    window.__threePromise = new Promise((resolve, reject) => {
-      if (window.THREE) { resolve(window.THREE); return; }
-      const s = document.createElement("script");
-      s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js";
-      s.onload = () => resolve(window.THREE);
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
-    return window.__threePromise;
-  };
-</script>
-<script>
- loadThree().then((THREE) => {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.getElementById("universe-bg").appendChild(renderer.domElement);
-
-  // Fewer stars on small screens - mobile GPUs are the ones struggling.
-  const STAR_COUNT = window.innerWidth < 768 ? 100 : 200;
-
-  // One Points object instead of 200 separate Mesh/geometry/material
-  // draw calls - same visual effect, a fraction of the GPU work.
-  const starPositions = new Float32Array(STAR_COUNT * 3);
-  const starColors = new Float32Array(STAR_COUNT * 3);
-  const starPhase = new Float32Array(STAR_COUNT);
-  for (let i = 0; i < STAR_COUNT; i++) {
-    starPositions[i*3]   = THREE.MathUtils.randFloatSpread(200);
-    starPositions[i*3+1] = THREE.MathUtils.randFloatSpread(200);
-    starPositions[i*3+2] = THREE.MathUtils.randFloatSpread(200);
-    starColors[i*3] = starColors[i*3+1] = starColors[i*3+2] = 1;
-    starPhase[i] = Math.random() * Math.PI * 2;
-  }
-  const starGeometry = new THREE.BufferGeometry();
-  starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
-  starGeometry.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
-  const starMaterial = new THREE.PointsMaterial({ size: 0.9, vertexColors: true, transparent: true });
-  const starField = new THREE.Points(starGeometry, starMaterial);
-  scene.add(starField);
-
-  const shootingStars = [];
-  for (let i = 0; i < 10; i++) {
-    const material = new THREE.LineBasicMaterial({ color: 0xffffaa });
-    const points = [];
-    points.push(new THREE.Vector3(0, 0, 0));
-    points.push(new THREE.Vector3(-2, -1, 0));
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const shootingStar = new THREE.Line(geometry, material);
-    shootingStar.position.set(
-      THREE.MathUtils.randFloat(20, 30),
-      THREE.MathUtils.randFloat(10, 20),
-      -5
-    );
-    scene.add(shootingStar);
-    shootingStars.push(shootingStar);
-  }
-  camera.position.z = 50;
-
-  let homeAnimId = null;
-  function animate() {
-    homeAnimId = requestAnimationFrame(animate);
-    const colorAttr = starGeometry.attributes.color;
-    for (let i = 0; i < STAR_COUNT; i++) {
-      const intensity = 0.5 + 0.5 * Math.sin(Date.now() * 0.002 + starPhase[i]);
-      colorAttr.array[i*3] = colorAttr.array[i*3+1] = colorAttr.array[i*3+2] = intensity;
-    }
-    colorAttr.needsUpdate = true;
-    shootingStars.forEach(star => {
-      star.position.x -= 0.6;
-      star.position.y -= 0.3;
-      if (star.position.x < -40 || star.position.y < -25) {
-        star.position.set(
-          THREE.MathUtils.randFloat(20, 30),
-          THREE.MathUtils.randFloat(10, 20),
-          -5
-        );
-      }
-    });
-    renderer.render(scene, camera);
-  }
-
-  // Only render while the Home section is actually on screen - this is a
-  // permanent background animation, so pausing it the moment the user
-  // scrolls away is what stops it from competing with scroll rendering
-  // for the rest of the page.
-  const homeSection = document.getElementById("home");
-  const homeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (homeAnimId === null) animate();
-      } else {
-        if (homeAnimId !== null) { cancelAnimationFrame(homeAnimId); homeAnimId = null; }
-      }
-    });
-  }, { threshold: 0, rootMargin: "800px 0px 800px 0px" });
-  homeObserver.observe(homeSection);
-
-  window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
- });
-</script>
-
 <!-- About Section -->
  <section id="about" class="about">
   <div class="about-container">
-    <p class="eyebrow">Who We Are</p>
-    <h2>About Us</h2>
-    <p>
-      GLOBAL PRIME ORBIT is an Import–Export and Trading Company dedicated to delivering 
-      quality products worldwide. Our portfolio spans across <strong>agro commodities</strong>, 
-      <strong>clothing</strong> such as traditional handloom sarees, <strong>handmade jewellery</strong>, 
-      unique <strong>handicrafts</strong>, and elegant <strong>home décor</strong>.
-    </p>
-    <p>
-      We specialize in <strong>fresh organic vegetables</strong>, <strong>fruits</strong>, 
-      <strong>spices</strong>, <strong>nuts</strong>, <strong>soft drinks</strong>, 
-      and premium <strong>textiles and fabrics</strong>. 
-      Our mission is to flourish together with global trade by building strong partnerships 
-      and maintaining the highest standards of quality in every transaction.
-    </p>
-  </div>
-</section>
+    <div class="about-text">
+      <p class="eyebrow">Who We Are</p>
+      <h2>About Us</h2>
+      <p>
+        GLOBAL PRIME ORBIT is an Import–Export and Trading Company dedicated to delivering 
+        quality products worldwide. Our portfolio spans across <strong>agro commodities</strong>, 
+        <strong>clothing</strong> such as traditional handloom sarees, <strong>handmade jewellery</strong>, 
+        unique <strong>handicrafts</strong>, and elegant <strong>home décor</strong>.
+      </p>
+      <p>
+        We specialize in <strong>fresh organic vegetables</strong>, <strong>fruits</strong>, 
+        <strong>spices</strong>, <strong>nuts</strong>, <strong>soft drinks</strong>, 
+        and premium <strong>textiles and fabrics</strong>. 
+        Our mission is to flourish together with global trade by building strong partnerships 
+        and maintaining the highest standards of quality in every transaction.
+      </p>
+      <p>
+        Your Demand, Our Services. Give Us Pleasure to serve you with quality Products. 
+        Trade for once &amp; It will be going to a Lifetime contact.
+      </p>
+      <a href="https://wa.me/916296898578" target="_blank" class="about-whatsapp-btn">
+        <i class="fab fa-whatsapp"></i> Talk To Our Experts
+      </a>
+    </div>
 
-<!-- Company Statistics Section -->
-<section id="stats" class="stats-band">
-  <div class="stats-container">
-    <div class="stat-item">
-      <span class="stat-number">18</span>
-      <span class="stat-label">Product Categories</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number">14+</span>
-      <span class="stat-label">Countries &amp; Regions Served</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number">168</span>
-      <span class="stat-label">Products Catalogued</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number">2</span>
-      <span class="stat-label">Dedicated Trade Partners</span>
+    <div class="about-gallery">
+      <img src="images/Valencia Rice.jpg" alt="Valencia Rice" class="about-gallery-img about-gallery-img-1" loading="lazy" decoding="async">
+      <img src="images/Apple.jpg" alt="Apple" class="about-gallery-img about-gallery-img-2" loading="lazy" decoding="async">
+      <img src="images/Dragon Fruit.jpg" alt="Dragon Fruit" class="about-gallery-img about-gallery-img-3" loading="lazy" decoding="async">
+      <img src="images/Black Gram Beans.jpg" alt="Black Gram Beans" class="about-gallery-img about-gallery-img-4" loading="lazy" decoding="async">
+      <img src="images/Premium Honey.jpg" alt="Premium Honey" class="about-gallery-img about-gallery-img-5" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -678,10 +593,9 @@
       <p id="modalCaption"></p>
       <p id="modalDescription" class="modal-description"></p>
       <a id="modalWhatsapp" class="modal-whatsapp-btn" href="#" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i> Ask on WhatsApp
+        <i class="fab fa-whatsapp"></i> Order Now
       </a>
-      <button class="prev">⬅</button>
-      <button class="next">➡</button>
+      <p class="modal-swipe-hint">⟵ Swipe to view more ⟶</p>
     </div>
   </div>
 </section>
@@ -998,8 +912,6 @@ const PRODUCTS_DATA = {
   const modalImg = document.getElementById("modalImage");
   const modalCaption = document.getElementById("modalCaption");
   const closeBtn = modal.querySelector(".close");
-  const prevBtn = modal.querySelector(".prev");
-  const nextBtn = modal.querySelector(".next");
   let currentImages = [];
   let currentIndex = 0;
   let activeCategoryKey = null;
@@ -1116,12 +1028,39 @@ const PRODUCTS_DATA = {
     modalWhatsapp.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   }
 
-  prevBtn.onclick = () => { currentIndex = (currentIndex-1+currentImages.length)%currentImages.length; showImage(); };
-  nextBtn.onclick = () => { currentIndex = (currentIndex+1)%currentImages.length; showImage(); };
+  function showPrevImage() { currentIndex = (currentIndex-1+currentImages.length)%currentImages.length; showImage(); }
+  function showNextImage() { currentIndex = (currentIndex+1)%currentImages.length; showImage(); }
   closeBtn.onclick = () => { closeModal(); };
 
+  // Manual slide control: swipe/drag left or right on the image to move
+  // between products, in place of the old prev/next arrow buttons. Works
+  // with touch, mouse and pen via the Pointer Events API (one code path).
+  const MODAL_SWIPE_THRESHOLD = 40; // px
+  let modalPointerStartX = 0;
+  let modalPointerDown = false;
+  let modalActivePointerId = null;
+
+  modalImg.addEventListener("pointerdown", (e) => {
+    modalPointerDown = true;
+    modalActivePointerId = e.pointerId;
+    modalPointerStartX = e.clientX;
+  });
+
+  modalImg.addEventListener("pointerup", (e) => {
+    if (!modalPointerDown || e.pointerId !== modalActivePointerId) return;
+    modalPointerDown = false;
+    const dx = e.clientX - modalPointerStartX;
+    if (Math.abs(dx) > MODAL_SWIPE_THRESHOLD) {
+      if (dx < 0) showNextImage(); else showPrevImage();
+    }
+  });
+
+  modalImg.addEventListener("pointercancel", () => {
+    modalPointerDown = false;
+  });
+
   // Safety net: clicking the dark background (not the image itself, and not
-  // the prev/next/close controls) also closes the popup - so there's always
+  // the close control) also closes the popup - so there's always
   // a way out even if the close icon is hard to tap on a small screen.
   modal.addEventListener("click", (e) => {
     if (e.target === modal) closeModal();
@@ -1150,8 +1089,8 @@ const PRODUCTS_DATA = {
       }
       return;
     }
-    if (e.key==="ArrowLeft") prevBtn.click();
-    if (e.key==="ArrowRight") nextBtn.click();
+    if (e.key==="ArrowLeft") showPrevImage();
+    if (e.key==="ArrowRight") showNextImage();
   });
 
   /* ------------------ Search (works across ALL categories, even closed ones) ------------------ */
@@ -1336,40 +1275,63 @@ const PRODUCTS_DATA = {
     <p class="eyebrow">Where We Trade</p>
     <h2>Global Presence</h2>
     <p class="global-presence-intro">Headquartered in Asansol, West Bengal, India — trading with partners across the following countries and regions.</p>
-    <div class="regions-marquee">
-      <div class="regions-track" id="regionsTrack">
-        <div class="regions-set">
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/in.png" alt="India flag"> India (HQ)</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/ae.png" alt="UAE flag"> United Arab Emirates</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/eu.png" alt="Europe flag"> Europe</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/us.png" alt="USA flag"> United States</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/sg.png" alt="Singapore flag"> Singapore</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/gb.png" alt="UK flag"> United Kingdom</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/de.png" alt="Germany flag"> Germany</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia flag"> Saudi Arabia</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/au.png" alt="Australia flag"> Australia</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/jp.png" alt="Japan flag"> Japan</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/za.png" alt="South Africa flag"> South Africa</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/bd.png" alt="Bangladesh flag"> Bangladesh</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/np.png" alt="Nepal flag"> Nepal</div>
-          <div class="region-chip"><span class="flag-icon flag-emoji">🌏</span> Asia Pacific</div>
-        </div>
-        <div class="regions-set" aria-hidden="true">
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/in.png" alt=""> India (HQ)</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/ae.png" alt=""> United Arab Emirates</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/eu.png" alt=""> Europe</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/us.png" alt=""> United States</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/sg.png" alt=""> Singapore</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/gb.png" alt=""> United Kingdom</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/de.png" alt=""> Germany</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/sa.png" alt=""> Saudi Arabia</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/au.png" alt=""> Australia</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/jp.png" alt=""> Japan</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/za.png" alt=""> South Africa</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/bd.png" alt=""> Bangladesh</div>
-          <div class="region-chip"><img class="flag-icon" loading="lazy" decoding="async" src="https://flagcdn.com/w40/np.png" alt=""> Nepal</div>
-          <div class="region-chip"><span class="flag-icon flag-emoji">🌏</span> Asia Pacific</div>
-        </div>
+    <div class="regions-grid">
+      <div class="region-card region-card-hq">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/in.png" alt="India flag">
+        <span class="region-name">India</span>
+        <span class="region-hq-label">Headquarters</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/ae.png" alt="UAE flag">
+        <span class="region-name">United Arab Emirates</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/sg.png" alt="Singapore flag">
+        <span class="region-name">Singapore</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/gb.png" alt="UK flag">
+        <span class="region-name">United Kingdom</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/us.png" alt="USA flag">
+        <span class="region-name">United States</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/de.png" alt="Germany flag">
+        <span class="region-name">Germany</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/fr.png" alt="France flag">
+        <span class="region-name">France</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/sa.png" alt="Saudi Arabia flag">
+        <span class="region-name">Saudi Arabia</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/au.png" alt="Australia flag">
+        <span class="region-name">Australia</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/jp.png" alt="Japan flag">
+        <span class="region-name">Japan</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/za.png" alt="South Africa flag">
+        <span class="region-name">South Africa</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/bd.png" alt="Bangladesh flag">
+        <span class="region-name">Bangladesh</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/np.png" alt="Nepal flag">
+        <span class="region-name">Nepal</span>
+      </div>
+      <div class="region-card">
+        <img class="region-flag" loading="lazy" decoding="async" src="https://flagcdn.com/w160/my.png" alt="Malaysia flag">
+        <span class="region-name">Malaysia</span>
       </div>
     </div>
   </div>
@@ -1387,11 +1349,7 @@ const PRODUCTS_DATA = {
         <h3 class="partner-name">Tanushree Singha</h3>
         <p class="partner-role">Partner</p>
         <p class="partner-bio">Tanushree co-leads GLOBAL PRIME ORBIT, overseeing trade operations and client relationships to make sure every enquiry gets a fast, reliable response and every shipment meets our quality standards.</p>
-      </div>
-      <div class="partners-shared-contact">
-        <i class="fab fa-whatsapp"></i>
-        <p class="partners-shared-label">Reach Either Partner</p>
-        <a href="https://wa.me/916296898578" target="_blank" class="partner-contact-btn">+91 62968 98578</a>
+        <a href="https://wa.me/916296898578" target="_blank" class="partner-contact-btn"><i class="fab fa-whatsapp"></i> Talk To Our Experts</a>
       </div>
       <div class="partner-card">
         <div class="partner-avatar">AD</div>
@@ -1400,7 +1358,6 @@ const PRODUCTS_DATA = {
         <p class="partner-bio">Avisek co-leads GLOBAL PRIME ORBIT, focusing on sourcing, logistics, and building long-term partnerships with suppliers so our clients get consistent quality and dependable delivery.</p>
       </div>
     </div>
-    <p class="partners-note">📸 Partner photos coming soon</p>
   </div>
 </section>
 
@@ -1412,10 +1369,10 @@ const PRODUCTS_DATA = {
     <div class="testimonials-track" id="testimonialsTrack">
       <div class="testimonial-card">
         <i class="fa-solid fa-quote-left quote-icon"></i>
-        <div class="stars">★★★★★</div>
+        <div class="stars">★★★★★<span class="rating-number">4.5/5</span></div>
         <p class="testimonial-text">GLOBAL PRIME ORBIT has been a dependable sourcing partner for our agro imports. Documentation, quality checks, and delivery timelines are always spot on.</p>
         <div class="testimonial-author">
-          <div class="author-avatar">RK</div>
+          <div class="author-avatar"><img src="images/Rashid Al Kaabi.png" alt="Rashid Al Kaabi" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">Rashid Al Kaabi</p>
             <p class="author-role">Procurement Head, Dubai, UAE</p>
@@ -1424,10 +1381,10 @@ const PRODUCTS_DATA = {
       </div>
       <div class="testimonial-card">
         <i class="fa-solid fa-quote-left quote-icon"></i>
-        <div class="stars">★★★★★</div>
+        <div class="stars">★★★★★<span class="rating-number">5/5</span></div>
         <p class="testimonial-text">The handloom sarees and handicrafts we ordered arrived exactly as promised — beautiful craftsmanship and consistent quality across every shipment.</p>
         <div class="testimonial-author">
-          <div class="author-avatar">EM</div>
+          <div class="author-avatar"><img src="images/Elena Moreau.png" alt="Elena Moreau" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">Elena Moreau</p>
             <p class="author-role">Boutique Owner, Paris, France</p>
@@ -1436,10 +1393,10 @@ const PRODUCTS_DATA = {
       </div>
       <div class="testimonial-card">
         <i class="fa-solid fa-quote-left quote-icon"></i>
-        <div class="stars">★★★★★</div>
+        <div class="stars">★★★★★<span class="rating-number">4.5/5</span></div>
         <p class="testimonial-text">Professional, transparent, and easy to work with. Their team guided us through export compliance and made international trade genuinely simple.</p>
         <div class="testimonial-author">
-          <div class="author-avatar">JT</div>
+          <div class="author-avatar"><img src="images/James Turner.png" alt="James Turner" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">James Turner</p>
             <p class="author-role">Import Manager, London, UK</p>
@@ -1448,10 +1405,10 @@ const PRODUCTS_DATA = {
       </div>
       <div class="testimonial-card">
         <i class="fa-solid fa-quote-left quote-icon"></i>
-        <div class="stars">★★★★★</div>
+        <div class="stars">★★★★★<span class="rating-number">5/5</span></div>
         <p class="testimonial-text">We've sourced spices, tea, and organic produce from them for over a year now. Fair pricing, honest communication, and reliable global reach.</p>
         <div class="testimonial-author">
-          <div class="author-avatar">AS</div>
+          <div class="author-avatar"><img src="images/Aiko Sato.png" alt="Aiko Sato" loading="lazy" decoding="async"></div>
           <div>
             <p class="author-name">Aiko Sato</p>
             <p class="author-role">Trading Partner, Tokyo, Japan</p>
@@ -1607,20 +1564,67 @@ const PRODUCTS_DATA = {
     <p class="eyebrow">Support</p>
     <h2>Frequently Asked Questions</h2>
     <div class="faq-item">
-      <h3>❓ What products do you trade?</h3>
-      <p>We specialize in agro commodities, textiles, handicrafts, jewellery, and home décor items sourced globally.</p>
+      <button type="button" class="faq-question" aria-expanded="false">
+        <span>What products does Global Prime Orbit trade?</span>
+        <span class="faq-toggle-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>We trade across 18 categories including grains, pulses, spices, tea, fruits, vegetables, coconuts, honey, handicrafts, handloom sarees, apparel, handmade jewellery, home décor, incense sticks, tulsi, Gangajal, drinks and select FMCG lines.</p>
+      </div>
     </div>
     <div class="faq-item">
-      <h3>❓ Do you provide international shipping?</h3>
-      <p>Yes, we offer reliable logistics and documentation support for seamless cross-border trade.</p>
+      <button type="button" class="faq-question" aria-expanded="false">
+        <span>Which countries do you ship to?</span>
+        <span class="faq-toggle-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>We are actively shipping to buyers across India, the UAE, Saudi Arabia, Singapore, the UK, Germany, France, USA, Australia, Japan, South Africa, Bangladesh, Nepal and the wider Asia Pacific region.</p>
+      </div>
     </div>
     <div class="faq-item">
-      <h3>❓ How can I request a quote?</h3>
-      <p>You can use the "Request a Quote" button on our homepage or contact us directly via WhatsApp or email.</p>
+      <button type="button" class="faq-question" aria-expanded="false">
+        <span>How do I request a quote?</span>
+        <span class="faq-toggle-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Use the Request a Quote form on this page, WhatsApp our partners directly, or email us at <a href="mailto:globalprimeorbit09@gmail.com">globalprimeorbit09@gmail.com</a> with product, quantity, destination and target Incoterms. Quotations are typically shared within 24 hours.</p>
+      </div>
     </div>
     <div class="faq-item">
-      <h3>❓ Are your products certified?</h3>
-      <p>We ensure quality standards and certifications for all products, especially organic and textile categories.</p>
+      <button type="button" class="faq-question" aria-expanded="false">
+        <span>Do you handle international shipping and documentation?</span>
+        <span class="faq-toggle-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Yes. We handle export-grade packaging, invoice, packing list, Bill of Lading, Certificate of Origin and any destination-specific certification. Freight is arranged with trusted forwarders across sea, air and road.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button type="button" class="faq-question" aria-expanded="false">
+        <span>Are your products certified?</span>
+        <span class="faq-toggle-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Yes — certifications are handled on a per-category, per-destination basis. We share applicable QA, phyto-sanitary and origin certifications as part of the shipping documentation for each consignment.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button type="button" class="faq-question" aria-expanded="false">
+        <span>Is there a minimum order quantity?</span>
+        <span class="faq-toggle-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>MOQ varies by category and destination. Some agro and FMCG lines start at container-load quantities, while handicraft, jewellery and textile ranges accommodate smaller test orders. Share your requirement and we'll advise.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button type="button" class="faq-question" aria-expanded="false">
+        <span>What payment terms do you accept?</span>
+        <span class="faq-toggle-icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>We work with standard trade terms including advance TT, Letter of Credit (LC at sight or usance) and negotiated milestone payments for repeat buyers. Terms are confirmed in the Proforma Invoice.</p>
+      </div>
     </div>
 
     <!-- Ask your own question -->
@@ -1635,6 +1639,24 @@ const PRODUCTS_DATA = {
     </div>
   </div>
 </section>
+
+<script>
+  // FAQ accordion: answers stay hidden until the question (or its +
+  // icon) is clicked. Only styling/animation is CSS-driven via the
+  // .faq-item.open class; this just toggles that class and updates
+  // aria-expanded for accessibility.
+  (function () {
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach(item => {
+      const question = item.querySelector(".faq-question");
+      if (!question) return;
+      question.addEventListener("click", () => {
+        const isOpen = item.classList.toggle("open");
+        question.setAttribute("aria-expanded", String(isOpen));
+      });
+    });
+  })();
+</script>
 
 <script>
   (function () {
@@ -1657,28 +1679,41 @@ const PRODUCTS_DATA = {
 
   <!-- Contact Section -->
  <section id="contact" class="contact">
-  <!-- Background canvas -->
-  <div id="contact-bg"></div>
 
   <!-- Contact content -->
   <div class="contact-content">
     <p class="eyebrow">Get In Touch</p>
     <h2 class="contact-title">Contact Us</h2>
 
-    <p class="contact-address">
-      Regd. Office: 86/84, Ram Golam Singh Road,<br>
-      P.O. Ushagram, P.S. Asansol South,<br>
-      Asansol -03, Paschim Bardhaman, West Bengal, India
-    </p>
+    <div class="contact-info-grid">
+      <div class="contact-info-card">
+        <div class="contact-icon-badge"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="contact-info-card-body">
+          <p class="contact-info-label">Registered Office</p>
+          <p class="contact-info-value">Asansol, West Bengal, India</p>
+        </div>
+      </div>
 
-    <div class="contact-info">
-      <p><strong>WhatsApp:</strong> 
-        <a href="https://wa.me/916296898578">+91 62968 98578 (Tanushree Singha, Partner)</a><br>
-        <a href="https://wa.me/919832848708">+91 98328 48708 (Avisek Dey, Partner)</a><br>
-      </p>
-      <p><strong>Email:</strong> 
-        <a href="mailto:globalprimeorbit09@gmail.com">globalprimeorbit09@gmail.com</a>
-      </p>
+      <div class="contact-info-card">
+        <div class="contact-icon-badge"><i class="fas fa-comment-dots"></i></div>
+        <div class="contact-info-card-body">
+          <p class="contact-info-label">WhatsApp</p>
+          <p class="contact-info-value">
+            <a href="https://wa.me/916296898578">+91 62968 98578 (Tanushree Singha, Partner)</a><br>
+            <a href="https://wa.me/919832848708">+91 98328 48708 (Avisek Dey, Partner)</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-icon-badge"><i class="fas fa-envelope"></i></div>
+        <div class="contact-info-card-body">
+          <p class="contact-info-label">Email</p>
+          <p class="contact-info-value">
+            <a href="mailto:globalprimeorbit09@gmail.com">globalprimeorbit09@gmail.com</a>
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Lead Form -->
@@ -1695,7 +1730,7 @@ const PRODUCTS_DATA = {
           <input type="email" id="leadEmail" placeholder="Email Address (optional)">
         </div>
         <select id="leadInterest">
-          <option value="">What are you interested in? (optional)</option>
+          <option value="">Select Product (Optional)</option>
           <option>Agro Commodities (Fruits, Vegetables, Spices)</option>
           <option>Textiles &amp; Handloom Sarees</option>
           <option>Handicrafts</option>
@@ -1705,7 +1740,7 @@ const PRODUCTS_DATA = {
         </select>
         <textarea id="leadMessage" rows="4" placeholder="Tell us what you need — product, quantity, destination country, etc.*" required></textarea>
         <div class="lead-form-actions">
-          <button type="submit" class="lead-btn lead-btn-whatsapp"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+          <button type="submit" class="lead-btn lead-btn-whatsapp"><i class="fab fa-whatsapp"></i> Talk To Our Experts</button>
           <button type="button" id="leadEmailBtn" class="lead-btn lead-btn-email"><i class="fa-regular fa-envelope"></i> Send via Email</button>
         </div>
         <p class="lead-form-note" id="leadFormNote"></p>
@@ -1713,103 +1748,6 @@ const PRODUCTS_DATA = {
     </div>
   </div>
 </section>
-
-<script>
-  // Unlike the Home starfield (visible immediately on load), Contact is the
-  // very last section on the page - most visits may never scroll this far.
-  // So this scene is never even built until the section is about to come
-  // into view: no GPU context, no buffers, no memory/battery cost paid by
-  // people who never reach it. It reuses the same three.js load as Home
-  // (loadThree() resolves instantly if that already finished).
-  let contactAnimId = null;
-  let contactSceneReady = false;
-
-  function buildContactScene(THREE) {
-    const sceneContact = new THREE.Scene();
-    const cameraContact = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const rendererContact = new THREE.WebGLRenderer({ alpha: true, antialias: false });
-    rendererContact.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById("contact-bg").appendChild(rendererContact.domElement);
-
-    const PARTICLE_COUNT = window.innerWidth < 768 ? 70 : 150;
-
-    // Single Points object instead of 150 separate Mesh draw calls.
-    const particlePositions = new Float32Array(PARTICLE_COUNT * 3);
-    const particleColors = new Float32Array(PARTICLE_COUNT * 3);
-    const particlePhase = new Float32Array(PARTICLE_COUNT);
-    const baseColor = new THREE.Color();
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particlePositions[i*3]   = THREE.MathUtils.randFloatSpread(60);
-      particlePositions[i*3+1] = THREE.MathUtils.randFloatSpread(60);
-      particlePositions[i*3+2] = THREE.MathUtils.randFloatSpread(60);
-      particlePhase[i] = Math.random() * Math.PI * 2;
-      baseColor.setHSL(0.11, 0.85, 0.5);
-      particleColors[i*3] = baseColor.r; particleColors[i*3+1] = baseColor.g; particleColors[i*3+2] = baseColor.b;
-    }
-    const particleGeometry = new THREE.BufferGeometry();
-    particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
-    particleGeometry.setAttribute("color", new THREE.BufferAttribute(particleColors, 3));
-    const particleMaterial = new THREE.PointsMaterial({ size: 0.35, vertexColors: true, transparent: true });
-    const particleField = new THREE.Points(particleGeometry, particleMaterial);
-    sceneContact.add(particleField);
-
-    cameraContact.position.z = 40;
-
-    function animateContact() {
-      contactAnimId = requestAnimationFrame(animateContact);
-      const posAttr = particleGeometry.attributes.position;
-      const colorAttr = particleGeometry.attributes.color;
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        posAttr.array[i*3]   += Math.sin(Date.now() * 0.0005 + particlePhase[i]) * 0.01;
-        posAttr.array[i*3+1] += Math.cos(Date.now() * 0.0005 + particlePhase[i]) * 0.01;
-        const intensity = 0.5 + 0.5 * Math.sin(Date.now() * 0.002 + particlePhase[i]);
-        baseColor.setHSL(0.11, 0.85, intensity);
-        colorAttr.array[i*3] = baseColor.r; colorAttr.array[i*3+1] = baseColor.g; colorAttr.array[i*3+2] = baseColor.b;
-      }
-      posAttr.needsUpdate = true;
-      colorAttr.needsUpdate = true;
-      rendererContact.render(sceneContact, cameraContact);
-    }
-
-    window.addEventListener("resize", () => {
-      cameraContact.aspect = window.innerWidth / window.innerHeight;
-      cameraContact.updateProjectionMatrix();
-      rendererContact.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    return animateContact;
-  }
-
-  let startContactAnimation = null;
-
-  // Same pause-when-off-screen treatment as the Home starfield, plus the
-  // build-on-first-approach step described above.
-  const contactSection = document.getElementById("contact");
-  const contactObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (!contactSceneReady) {
-          contactSceneReady = true;
-          loadThree().then((THREE) => {
-            startContactAnimation = buildContactScene(THREE);
-            // The section may already have scrolled back out while the
-            // library/scene were loading - only start if still in view.
-            if (contactObserver.__stillIntersecting && contactAnimId === null) {
-              startContactAnimation();
-            }
-          });
-        } else if (startContactAnimation && contactAnimId === null) {
-          startContactAnimation();
-        }
-        contactObserver.__stillIntersecting = true;
-      } else {
-        contactObserver.__stillIntersecting = false;
-        if (contactAnimId !== null) { cancelAnimationFrame(contactAnimId); contactAnimId = null; }
-      }
-    });
-  }, { threshold: 0, rootMargin: "800px 0px 800px 0px" });
-  contactObserver.observe(contactSection);
-</script>
 
 <script>
   (function () {
@@ -1875,15 +1813,33 @@ const PRODUCTS_DATA = {
 <footer class="footer">
   <div class="footer-container">
 
-    <!-- Newsletter / Email Signup -->
-    <div class="footer-newsletter">
-      <p class="footer-newsletter-label">Get trade updates &amp; offers in your inbox</p>
-      <form class="newsletter-form" id="newsletterForm">
-        <i class="fa-regular fa-envelope"></i>
-        <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
-        <button type="submit">Subscribe</button>
-      </form>
-      <p class="newsletter-note" id="newsletterNote"></p>
+    <div class="footer-top">
+      <!-- Brand block -->
+      <div class="footer-brand">
+        <div class="logo-group footer-logo-group">
+          <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img">
+          <div class="logo-text">
+            <span class="logo">GLOBAL PRIME ORBIT</span>
+            <span class="logo-subtitle">IMPORT EXPORT TRADE</span>
+          </div>
+        </div>
+        <p class="footer-tagline">Products Worldwide with Quality &amp; Trust</p>
+        <p class="footer-tagline">Flourishing with Global Trade</p>
+      </div>
+
+      <!-- Footer menu (mirrors header nav) -->
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#export-process">Process</a></li>
+          <li><a href="#global-presence">Global Research</a></li>
+          <li><a href="#partners">Leadership</a></li>
+          <li><a href="#blog">Our Blog</a></li>
+          <li><a href="#contact" class="footer-nav-quote">Request a Quote</a></li>
+        </ul>
+      </nav>
     </div>
 
     <!-- Social Media Icons -->
@@ -1892,8 +1848,6 @@ const PRODUCTS_DATA = {
       <a href="https://www.facebook.com" target="_blank" class="social facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
       <a href="https://www.instagram.com" target="_blank" class="social instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
       <a href="https://www.twitter.com" target="_blank" class="social twitter" aria-label="Twitter / X"><i class="fab fa-twitter"></i></a>
-      <a href="https://www.youtube.com" target="_blank" class="social youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://wa.me/916296898578" target="_blank" class="social whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <!-- Legal Links -->
@@ -1908,9 +1862,6 @@ const PRODUCTS_DATA = {
     </div>
 
     <p>© 2026 GLOBAL PRIME ORBIT. All Rights Reserved.</p>
-    <p>🌍 Designed & Developed by 
-      <a href="https://sukhdipcreations.netlify.app/" target="_blank">Somnath Kar</a>
-    </p>
   </div>
 </footer>
 
@@ -2034,17 +1985,6 @@ const PRODUCTS_DATA = {
     cookieBanner.classList.remove("show");
   });
 
-  /* ---------------- Newsletter form ---------------- */
-  const newsletterForm = document.getElementById("newsletterForm");
-  const newsletterNote = document.getElementById("newsletterNote");
-  newsletterForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = document.getElementById("newsletterEmail").value.trim();
-    if (email) {
-      newsletterNote.textContent = "Thanks for subscribing! We'll be in touch at " + email + ".";
-      newsletterForm.reset();
-    }
-  });
 </script>
 
 
@@ -2079,7 +2019,6 @@ const PRODUCTS_DATA = {
     }
 
     setupMarquee("tradeRouteTrack");
-    setupMarquee("regionsTrack");
   })();
 </script>
 
