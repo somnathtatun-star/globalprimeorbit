@@ -150,7 +150,16 @@
   <!-- Video Slideshow Section -->
   <section id="video-slideshow" class="video-slideshow">
     <div class="video-slides">
-      <video class="video-slide active" autoplay muted loop playsinline preload="auto">
+      <!-- poster="" on every slide: a small (~20-30KB) still JPG of that
+           video's first frame, in a new videos/posters/ folder you supply.
+           Browsers paint the poster the instant the HTML/CSS parses -
+           long before the actual video downloads - so on a slow mobile
+           connection the visitor sees a real photo immediately instead of
+           a blank/dark panel while multi-MB video data is still in transit.
+           This is the single biggest fix for "images/videos appearing late"
+           on phones; without these files the code below still works, it
+           just has nothing to show until the video itself arrives. -->
+      <video class="video-slide active" muted loop playsinline preload="auto" poster="videos/posters/ship.jpg">
         <source src="videos/mobile/Ship.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Ship.mp4" type="video/mp4">
       </video>
@@ -160,15 +169,15 @@
            right after landing. These now stay at "metadata" (just enough
            to know duration/dimensions) until goToSlide() upgrades the
            next one shortly before it's shown. -->
-      <video class="video-slide" muted loop playsinline preload="metadata">
+      <video class="video-slide" muted loop playsinline preload="metadata" poster="videos/posters/factory.jpg">
         <source src="videos/mobile/Factory.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Factory.mp4" type="video/mp4">
       </video>
-      <video class="video-slide" muted loop playsinline preload="metadata">
+      <video class="video-slide" muted loop playsinline preload="metadata" poster="videos/posters/quality.jpg">
         <source src="videos/mobile/Quality.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Quality.mp4" type="video/mp4">
       </video>
-      <video class="video-slide" muted loop playsinline preload="metadata">
+      <video class="video-slide" muted loop playsinline preload="metadata" poster="videos/posters/packaging.jpg">
         <source src="videos/mobile/Packaging.mp4" media="(max-width: 768px)" type="video/mp4">
         <source src="videos/Packaging.mp4" type="video/mp4">
       </video>
@@ -200,10 +209,20 @@
       const SLIDE_DURATION = 5000; // 5 seconds per slide, then auto-advance
       let timer = null;
 
+      // On a slow/metered mobile connection, skip video downloads
+      // altogether and just let each slide's poster still show - the dots
+      // still switch and captions still change, but no MB-sized video ever
+      // gets requested. This is what actually fixes "everything appears
+      // late/lagging" for a visitor on a weak mobile signal, rather than
+      // just optimizing which order videos load in.
+      const conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+      const isSlowConnection = !!(conn && (conn.saveData || /^(slow-2g|2g|3g)$/.test(conn.effectiveType || "")));
+
       // Upgrade a slide from preload="metadata" to a real, playable load.
       // Called for the next slide ahead of time so it's already buffered
       // by the time goToSlide() switches to it.
       function primeSlide(index) {
+        if (isSlowConnection) return;
         const v = slides[index];
         if (v.preload !== "auto") {
           v.preload = "auto";
@@ -220,8 +239,10 @@
 
         primeSlide(current);
         slides[current].classList.add("active");
-        slides[current].currentTime = 0;
-        slides[current].play().catch(() => {});
+        if (!isSlowConnection) {
+          slides[current].currentTime = 0;
+          slides[current].play().catch(() => {});
+        }
         dots[current].classList.add("active");
         caption.textContent = captions[current];
 
@@ -283,6 +304,12 @@
         pointerDown = false;
       });
 
+      // The first slide dropped its `autoplay` attribute so a slow
+      // connection can show just its poster and truly download nothing;
+      // on a normal connection, start it playing immediately here instead.
+      if (!isSlowConnection) {
+        slides[current].play().catch(() => {});
+      }
       startAutoplay();
     })();
   </script>
@@ -291,10 +318,37 @@
   <!-- Hero content -->
   <div class="hero-content">
     <div class="logo-container">
-      <video class="logo-video" autoplay loop muted playsinline preload="auto" fetchpriority="high">
+      <!-- Static image paints first and instantly (it's the same logo
+           already used in the header, so it's likely already cached).
+           The animated .webm version only loads in on top of it for
+           visitors who aren't on a slow/data-saver connection - see the
+           script right below. Previously this video was the ONLY thing
+           here with autoplay+preload="auto", so on mobile the "logo"
+           itself was, invisibly, a multi-second video download - this is
+           the main fix for "logos appearing very late". -->
+      <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT" class="logo-static-img" fetchpriority="high" decoding="async">
+      <video class="logo-video" loop muted playsinline preload="none" aria-hidden="true">
         <source src="videos/logo.webm" type="video/webm">
       </video>
     </div>
+    <script>
+      (function () {
+        const conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+        const isSlowConnection = !!(conn && (conn.saveData || /^(slow-2g|2g|3g)$/.test(conn.effectiveType || "")));
+        if (isSlowConnection) return; // keep the static logo image only - no video request at all
+
+        const container = document.currentScript.previousElementSibling;
+        const video = container.querySelector(".logo-video");
+        const img = container.querySelector(".logo-static-img");
+        video.addEventListener("playing", () => {
+          video.classList.add("is-ready");
+          img.classList.add("is-hidden");
+        }, { once: true });
+        video.preload = "auto";
+        video.load();
+        video.play().catch(() => {});
+      })();
+    </script>
     <h1 class="cosmic-title">GLOBAL PRIME ORBIT</h1>
     <p class="tagline">Products Worldwide with Quality &amp; Trust</p>
     <p class="tagline">Flourishing Together with Global Trade</p>
@@ -598,7 +652,7 @@
       <span class="close">&times;</span>
       <div class="product-slide" id="productSlide">
         <img class="modal-content" id="modalImage" alt="">
-        <div class="product-slide-overlay" id="productSlideOverlay">
+        <div class="product-slide-info" id="productSlideOverlay">
           <p id="modalCaption" class="product-slide-title"></p>
           <div class="product-slide-badges" id="productSlideBadges"></div>
           <p id="modalDescription" class="modal-description"></p>

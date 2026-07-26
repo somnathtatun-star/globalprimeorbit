@@ -459,16 +459,30 @@ header nav ul li a.active {
   width: 400px;
   margin: 0 auto 12px;
   overflow: hidden;
+  position: relative;
   /* Reserves the logo's footprint before the video has loaded, so it
      doesn't appear as a jarring pop-in / layout jump once it does.
      Adjust this ratio if the actual logo isn't roughly square. */
   aspect-ratio: 1 / 1;
 }
+.logo-static-img,
 .logo-video {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
   background: transparent;
+}
+.logo-video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.logo-video.is-ready { opacity: 1; }
+.logo-static-img.is-hidden { opacity: 0; }
+.logo-static-img {
+  position: relative;
+  transition: opacity 0.4s ease;
 }
 .cosmic-title {
   font-family: var(--font-display);
@@ -1043,14 +1057,14 @@ header nav ul li a.active {
   z-index:2000;
 }
 
-/* Product slider: the photo fills the frame and the name/description/CTA
-   sit in a gradient overlay on top of it (rather than stacked underneath),
-   so switching products feels like a slideshow with a caption card riding
-   on top of each slide. */
+/* Product slider: the photo shows in full (nothing cropped or covered),
+   and the name/description/CTA sit in their own panel directly below it -
+   so nothing about the image itself is ever hidden behind text. */
 .product-slide {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   width: min(90vw, 640px);
-  height: min(78vh, 640px);
+  max-height: 82vh;
   border-radius: var(--radius-md);
   overflow: hidden;
   background: #05131f;
@@ -1058,11 +1072,11 @@ header nav ul li a.active {
 }
 .modal-content {
   width: 100%;
-  height: 100%;
+  max-height: 46vh;
   max-width: none;
-  max-height: none;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  background: #05131f;
   touch-action: pan-y;
   cursor: grab;
   user-select: none;
@@ -1070,6 +1084,7 @@ header nav ul li a.active {
   opacity: 0;
   transform: scale(1.05);
   transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  flex-shrink: 0;
 }
 /* Starting offset the image transitions in from - which side depends on
    swipe/nav direction, giving next/prev a real "slide" feel instead of a
@@ -1078,16 +1093,17 @@ header nav ul li a.active {
 .modal-content.slide-from-left { transform: translateX(-46px) scale(1.05); }
 .modal-content.is-shown { opacity: 1; transform: translateX(0) scale(1); }
 
-.product-slide-overlay {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 36px 24px 22px;
-  background: linear-gradient(to top, rgba(5,19,31,0.95) 0%, rgba(5,19,31,0.65) 55%, transparent 100%);
+.product-slide-info {
+  padding: 20px 24px 24px;
+  background: var(--ink-2);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
 }
-.product-slide-overlay.is-shown { opacity: 1; transform: translateY(0); }
+.product-slide-info.is-shown { opacity: 1; transform: translateY(0); }
 .product-slide-title {
   font-family: var(--font-display);
   font-size: 1.2rem;
@@ -2426,7 +2442,8 @@ header nav ul li a.active {
   .footer-logo-group { justify-content: center; }
   .footer-nav ul { justify-content: center; width: 100%; }
 
-  .product-slide { width: 92vw; height: 62vh; }
+  .product-slide { width: 92vw; max-height: 85vh; }
+  .modal-content { max-height: 38vh; }
   .modal .close {
     position: static;
     align-self: flex-end;
