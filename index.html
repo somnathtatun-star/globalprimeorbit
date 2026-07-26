@@ -600,6 +600,7 @@
         <img class="modal-content" id="modalImage" alt="">
         <div class="product-slide-overlay" id="productSlideOverlay">
           <p id="modalCaption" class="product-slide-title"></p>
+          <div class="product-slide-badges" id="productSlideBadges"></div>
           <p id="modalDescription" class="modal-description"></p>
           <a id="modalWhatsapp" class="modal-whatsapp-btn" href="#" target="_blank" rel="noopener">
             <i class="fab fa-whatsapp"></i> Order Now
@@ -970,18 +971,19 @@ const PRODUCTS_DATA = {
     galleryContent.innerHTML = "";
     sub.images.forEach(img => {
       const wrap = document.createElement("div");
+      wrap.className = "product-thumb";
       wrap.innerHTML = `
         <img src="${img.src}" alt="${img.name}" data-name="${img.name}" data-category="${category.title}" data-sub="${sub.title}" loading="lazy" decoding="async">
-        <p>${img.name}</p>
+        <span class="product-thumb-caption">${img.name}</span>
       `;
       galleryContent.appendChild(wrap);
     });
 
     // wire up modal clicks for this gallery
-    galleryContent.querySelectorAll("img").forEach(imgEl => {
-      imgEl.addEventListener("click", () => {
-        currentImages = [...galleryContent.querySelectorAll("img")];
-        currentIndex = currentImages.indexOf(imgEl);
+    galleryContent.querySelectorAll(".product-thumb").forEach(thumbEl => {
+      thumbEl.addEventListener("click", () => {
+        currentImages = [...galleryContent.querySelectorAll(".product-thumb img")];
+        currentIndex = currentImages.indexOf(thumbEl.querySelector("img"));
         showImage();
         openModal();
       });
@@ -1015,22 +1017,101 @@ const PRODUCTS_DATA = {
   const modalDescription = document.getElementById("modalDescription");
   const WHATSAPP_NUMBER = "916296898578"; // Tanushree Singha, Partner
 
-  // Generates a contextual description for a product using its category/sub-category,
-  // so every item gets more than just a bare name — without inventing fake specs.
-  const DESCRIPTION_TEMPLATES = [
-    (name, sub, cat) => `${name} is part of our ${sub} range within ${cat}, sourced and quality-checked by GLOBAL PRIME ORBIT for reliable bulk and wholesale export.`,
-    (name, sub, cat) => `Sourced under our ${cat} portfolio, ${name} is available through GLOBAL PRIME ORBIT for B2B buyers who value consistent quality in every shipment.`,
-    (name, sub, cat) => `${name} is one of the trusted ${sub} products we trade internationally, backed by careful quality control and dependable logistics.`,
-    (name, sub, cat) => `As part of our ${cat} offering, ${name} is supplied to import-export partners worldwide with a focus on consistency, batch to batch.`
-  ];
-  function generateProductDescription(name, sub, cat) {
-    const idx = name.length % DESCRIPTION_TEMPLATES.length;
-    const base = DESCRIPTION_TEMPLATES[idx](name, sub || cat, cat || "our catalog");
-    return `${base} Contact us for current availability, packaging options, and pricing.`;
+  // Rich, category-level detail used to describe every product - covers
+  // taste, health/use benefits, and typical trade use, keyed by the
+  // sub-category (falls back to the top-level category, then a generic
+  // default). This is deliberately per-category rather than per-product:
+  // with 168 named items, this keeps every single one factually grounded
+  // (no invented per-item nutrition numbers) while still reading as real
+  // detail rather than a one-line label.
+  const PRODUCT_CATEGORY_DETAILS = {
+    "Rice": {
+      tag: "Energy-Rich Staple",
+      taste: "a mild, comforting flavor with a texture that ranges from light and separate to soft and sticky depending on the variety",
+      benefits: "a wholesome source of carbohydrates for steady, everyday energy - naturally gluten-free and easy on digestion",
+      uses: "a kitchen staple for everyday meals as well as festive biryanis, risottos, and pilafs"
+    },
+    "Wheat": {
+      tag: "Whole-Grain Goodness",
+      taste: "a warm, nutty flavor that deepens once it's milled and baked",
+      benefits: "a good source of dietary fibre and slow-release energy, making it a solid everyday staple",
+      uses: "milled into flour for breads, rotis, and a wide range of bakery products"
+    },
+    "Corn": {
+      tag: "Naturally Sweet",
+      taste: "a naturally sweet, slightly buttery flavor with a satisfying bite",
+      benefits: "a good source of dietary fibre and antioxidants, and naturally gluten-free",
+      uses: "used fresh, milled, or processed across snacks, staples, and feed"
+    },
+    "Millet": {
+      tag: "Ancient Grain Nutrition",
+      taste: "an earthy, subtly nutty taste that takes on other flavors well",
+      benefits: "a nutrient-dense, high-fibre ancient grain valued for slow-digesting carbohydrates",
+      uses: "a versatile substitute for rice and wheat in porridges, flatbreads, and health foods"
+    },
+    "All Kinds of Daal": {
+      tag: "Protein-Rich Pulses",
+      taste: "a mild, earthy flavor that takes on spices and seasoning beautifully",
+      benefits: "an excellent plant-based source of protein and fibre for a balanced, everyday diet",
+      uses: "a kitchen essential for daals, soups, and curries across cuisines"
+    },
+    "Tea": {
+      tag: "Antioxidant-Rich",
+      taste: "a distinct aroma and flavor ranging from brisk and malty to delicate and floral, depending on the leaf",
+      benefits: "naturally rich in antioxidants, and a gentle, comforting everyday beverage",
+      uses: "brewed hot or cold as a daily beverage across households, cafes, and hospitality"
+    },
+    "Honey": {
+      tag: "Pure & Natural Sweetener",
+      taste: "a naturally sweet, floral taste that varies subtly with the source blossom",
+      benefits: "a natural sweetener valued for its antioxidant properties and traditional wellness use",
+      uses: "used in beverages, cooking, and as a natural alternative to refined sugar"
+    },
+    "Alloevera": {
+      tag: "Wellness & Skincare",
+      taste: "a mild, refreshing taste in its raw and juice forms",
+      benefits: "traditionally valued for skin care, hydration, and general wellness use",
+      uses: "used across cosmetics, wellness drinks, and traditional skincare preparations"
+    },
+    "Fruits": {
+      tag: "Vitamin-Rich & Fresh",
+      taste: "naturally sweet, juicy, and refreshing, picked and packed for peak flavor",
+      benefits: "a wholesome source of vitamins, natural sugars, and everyday hydration",
+      uses: "enjoyed fresh, juiced, or processed across retail and food service"
+    },
+    "Vegetables": {
+      tag: "Fibre-Rich & Fresh",
+      taste: "fresh, crisp, and full of natural flavor",
+      benefits: "a wholesome source of dietary fibre, vitamins, and minerals for a balanced diet",
+      uses: "a daily kitchen essential across households, restaurants, and food processing"
+    },
+    "Coconuts": {
+      tag: "Naturally Hydrating",
+      taste: "a naturally sweet, refreshing taste with a distinct tropical aroma",
+      benefits: "naturally hydrating with electrolytes, and a versatile source of healthy fats",
+      uses: "used fresh, as coconut water, or processed into oil, milk, and desiccated forms"
+    }
+  };
+  const DEFAULT_PRODUCT_DETAILS = {
+    tag: "Quality Assured",
+    taste: "a flavor and quality consistent with premium, export-grade sourcing",
+    benefits: "carefully selected for freshness, quality, and batch-to-batch consistency",
+    uses: "supplied to B2B buyers across our trade network"
+  };
+
+  // Builds both the fuller description paragraph and the quick badge row
+  // for a product, using its sub-category (falling back to category) to
+  // look up the right taste/health/use detail above.
+  function buildProductCopy(name, sub, cat) {
+    const d = PRODUCT_CATEGORY_DETAILS[sub] || PRODUCT_CATEGORY_DETAILS[cat] || DEFAULT_PRODUCT_DETAILS;
+    const usesSentence = d.uses.charAt(0).toUpperCase() + d.uses.slice(1);
+    const description = `${name} brings ${d.taste}. As ${d.benefits}, it's one of the highlights of our ${sub || cat} range. ${usesSentence}. Every batch is quality-checked by GLOBAL PRIME ORBIT before export, with full documentation for smooth customs clearance. Contact us for current availability, packaging options, and pricing.`;
+    return { description, badges: [d.tag, "Export Grade", "Quality Checked"] };
   }
 
   const productSlide = document.getElementById("productSlide");
   const productSlideOverlay = document.getElementById("productSlideOverlay");
+  const productSlideBadges = document.getElementById("productSlideBadges");
 
   // Shows the image+text for currentImages[currentIndex] as a slider
   // transition: the photo slides/fades in first (from the right when
@@ -1051,7 +1132,9 @@ const PRODUCTS_DATA = {
     modalImg.src = current.src;
     modalImg.alt = productName;
     modalCaption.textContent = productName;
-    modalDescription.textContent = generateProductDescription(productName, current.dataset.sub, current.dataset.category);
+    const copy = buildProductCopy(productName, current.dataset.sub, current.dataset.category);
+    modalDescription.textContent = copy.description;
+    productSlideBadges.innerHTML = copy.badges.map(b => `<span class="product-badge">${b}</span>`).join("");
     const message = `Hi GLOBAL PRIME ORBIT, I'm interested in "${productName}". Could you share more details and pricing?`;
     modalWhatsapp.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
