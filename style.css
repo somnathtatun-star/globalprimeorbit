@@ -49,6 +49,21 @@ html { scroll-behavior: smooth; }
    itself. This guarantees that can never happen, regardless of cause. */
 html, body { overflow-x: hidden; max-width: 100%; }
 
+/* Scroll-reveal: sections start slightly lower and transparent, then ease
+   up into place the first time they cross into the viewport - whether
+   the user scrolls there naturally or a nav-link click smooth-scrolls
+   the page down to them. Runs once per section (see the JS observer). */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(56px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ===========================
    Scroll performance
    ---------------------------
