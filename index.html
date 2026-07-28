@@ -83,9 +83,35 @@
 </head>
 <body>
   <!-- Floating Special Offer Badge -->
-  <a href="#contact" class="floating-offer" aria-label="Special Offer - Get In Touch">
-    <img src="images/specialoffer.png" alt="Special Offer" class="floating-offer-img" loading="eager" decoding="async">
-  </a>
+  <div class="floating-offer-wrap" id="floatingOfferWrap">
+    <a href="#contact" class="floating-offer" aria-label="Special Offer - Get In Touch">
+      <img src="images/specialoffer.png" alt="Special Offer" class="floating-offer-img" loading="eager" decoding="async">
+    </a>
+    <button type="button" class="floating-offer-close" id="floatingOfferClose" aria-label="Dismiss special offer">&times;</button>
+  </div>
+
+  <script>
+    // Lets the visitor manually remove the floating special-offer badge by
+    // tapping the small "x" cut button. Uses sessionStorage so it stays
+    // dismissed while they browse the site, but shows again on a future visit.
+    (function () {
+      const wrap = document.getElementById("floatingOfferWrap");
+      const closeBtn = document.getElementById("floatingOfferClose");
+      if (!wrap || !closeBtn) return;
+
+      if (sessionStorage.getItem("gpoOfferDismissed") === "1") {
+        wrap.style.display = "none";
+        return;
+      }
+
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        wrap.style.display = "none";
+        sessionStorage.setItem("gpoOfferDismissed", "1");
+      });
+    })();
+  </script>
 
   <!-- Header -->
   <header>
@@ -110,6 +136,7 @@
         <li><a href="#export-process">Process</a></li>
         <li><a href="#global-presence">Global Research</a></li>
         <li><a href="#partners">Leadership</a></li>
+        <li><a href="#profile">Profile</a></li>
         <li><a href="#blog">Our Blog</a></li>
         <li class="nav-quote-item"><a href="#contact" class="nav-quote-btn">Request a Quote</a></li>
       </ul>
@@ -606,9 +633,9 @@
   <img src="images/cow dung cake.png" alt="Cow Dung Logo" class="products-image" loading="lazy" decoding="async">
   <h2 class="products-title">Cow Dung</h2>
 </div>
-      <div class="products-card" id="productsHoney&AlloveraCard">
-  <img src="images/aloe.png" alt="Honey & Allovera Logo" class="products-image" loading="lazy" decoding="async">
-  <h2 class="products-title">Honey & Allovera</h2>
+      <div class="products-card" id="productsAlloveraCard">
+  <img src="images/aloe.png" alt="Allovera Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Allovera</h2>
 </div>
       <div class="products-card" id="productsMushroomsCard">
   <img src="images/mushroom.png" alt="Mushrooms Logo" class="products-image" loading="lazy" decoding="async">
@@ -795,23 +822,9 @@ const PRODUCTS_DATA = {
 },
 
 
- "productsHoney&AlloveraCard": {
-  title: "Honey & Allovera",
+ "productsAlloveraCard": {
+  title: "Allovera",
   subcategories: [
-    {
-      title: "Honey",
-      logo: "images/honey.png",
-      images: [
-        { src: "images/Alfalfa Honey.jpg", name: "Alfalfa Honey" },
-        { src: "images/Baker's Special Honey.jpg", name: "Baker's Special Honey" },
-        { src: "images/Clover Honey.jpg", name: "Clover Honey" },
-        { src: "images/Eucalyptus Honey.jpg", name: "Eucalyptus Honey" },
-        { src: "images/Golden Honey.jpg", name: "Golden Honey" },
-        { src: "images/Orange Blossom Honey.jpg", name: "Orange Blossom Honey" },
-        { src: "images/Premium Honey.jpg", name: "Premium Honey" },
-        { src: "images/Wildflower Honey.jpg", name: "Wildflower Honey" }
-      ]
-    },
     {
       title: "Alloevera",
       logo: "images/aloe2.png",
@@ -1119,12 +1132,6 @@ const PRODUCTS_DATA = {
       taste: "a distinct aroma and flavor ranging from brisk and malty to delicate and floral, depending on the leaf",
       benefits: "naturally rich in antioxidants, and a gentle, comforting everyday beverage",
       uses: "brewed hot or cold as a daily beverage across households, cafes, and hospitality"
-    },
-    "Honey": {
-      tag: "Pure & Natural Sweetener",
-      taste: "a naturally sweet, floral taste that varies subtly with the source blossom",
-      benefits: "a natural sweetener valued for its antioxidant properties and traditional wellness use",
-      uses: "used in beverages, cooking, and as a natural alternative to refined sugar"
     },
     "Alloevera": {
       tag: "Wellness & Skincare",
@@ -1537,6 +1544,29 @@ const PRODUCTS_DATA = {
         <h3 class="partner-name">Avisek Dey</h3>
         <p class="partner-role">Partner</p>
         <p class="partner-bio">Avisek co-leads GLOBAL PRIME ORBIT, focusing on sourcing, logistics, and building long-term partnerships with suppliers so our clients get consistent quality and dependable delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Profile Section -->
+<section id="profile" class="reveal-up profile">
+  <div class="profile-container">
+    <p class="eyebrow">Leadership Profiles</p>
+    <h2>Partner Profiles</h2>
+    <p class="profile-intro">A closer look at the two partners behind GLOBAL PRIME ORBIT and the roles they carry.</p>
+    <div class="profile-grid">
+      <div class="profile-card">
+        <img src="images/tanushree-singha.jpg" alt="Tanushree Singha" class="profile-photo" loading="lazy" decoding="async">
+        <h3 class="profile-name">Tanushree Singha</h3>
+        <p class="profile-role">Partner — Marketing &amp; Sales</p>
+        <p class="profile-bio">Tanushree Singha is a founding partner of GLOBAL PRIME ORBIT and leads the company's entire marketing and sales function. She is the first point of contact for buyers reaching out from India, the UAE, Europe, the USA, and across the Asia Pacific region, and personally manages every enquiry from the first message through to a confirmed order. Tanushree built the company's outreach strategy from the ground up, developing the relationships with agro commodity growers, textile weavers, artisans, and jewellery makers that now form the backbone of the supplier network. She oversees pricing strategy, bulk quotations, and client negotiations, making sure every deal reflects fair value for both buyer and supplier. Her day-to-day work includes coordinating digital marketing, guiding the sales team, following up on export leads, and representing GLOBAL PRIME ORBIT at buyer meetings and trade enquiries. She is known among clients for her responsiveness, with quotations typically shared within 24 hours of a request — a standard she set and maintains personally. Tanushree works closely with the operations side of the business to ensure that sales commitments made to buyers translate into on-time shipments and accurate documentation. Beyond individual transactions, she also shapes the company's broader growth strategy, identifying new product categories and export markets worth pursuing. Her approach blends warmth with discipline, treating every client relationship as long-term rather than transactional. Clients and colleagues alike describe her as approachable, detail-oriented, and hands-on with every account she manages. She remains the primary point of contact for all sales and marketing matters at GLOBAL PRIME ORBIT.</p>
+      </div>
+      <div class="profile-card">
+        <img src="images/avisek-dey.jpg" alt="Avisek Dey" class="profile-photo" loading="lazy" decoding="async">
+        <h3 class="profile-name">Avisek Dey</h3>
+        <p class="profile-role">Partner — Accounts, Legal &amp; Foreign Relations</p>
+        <p class="profile-bio">Avisek Dey is a founding partner of GLOBAL PRIME ORBIT and holds responsibility for the company's accounts, legal compliance, and international relations. He manages the financial backbone of the business, overseeing bookkeeping, invoicing, payment reconciliation, and the accurate documentation required for every cross-border transaction. As the company's legal advisor, he ensures that contracts, trade agreements, and shipment paperwork comply with both Indian regulations and the import laws of destination countries, reducing the risk of customs delays for buyers. He plays a central role in developing GLOBAL PRIME ORBIT's foreign connections, building and maintaining relationships with international buyers, freight forwarders, and regulatory bodies across the UAE, Europe, the USA, and the Asia Pacific. Avisek is closely involved in structuring Incoterms, payment terms, and letters of credit for larger export orders, working to protect the interests of both the company and its trading partners. He also oversees due diligence on new suppliers and buyers, verifying credentials before the company commits to a trading relationship. His background in finance and trade compliance allows him to anticipate regulatory changes and adjust processes accordingly, keeping shipments moving smoothly as international trade rules evolve. He works in close coordination with Tanushree Singha, aligning the company's sales commitments with what is financially and legally achievable for each shipment. He is methodical and detail-driven, preferring to resolve documentation or compliance issues well before they can affect a client's delivery timeline. Beyond his operational duties, Avisek also contributes to the company's long-term strategic planning, particularly around expanding into new export markets.</p>
       </div>
     </div>
   </div>
