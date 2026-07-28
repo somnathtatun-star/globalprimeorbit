@@ -64,27 +64,19 @@ html, body { overflow-x: hidden; max-width: 100%; }
   transform: translateY(0);
 }
 
-/* True scroll-driven fade-in for browsers that support CSS scroll-linked
-   animations (animation-timeline: view()): opacity/position are tied
-   directly to the section's scroll progress through the viewport instead
-   of a one-time JS-triggered transition. Where it's supported, the
-   matching JS (IntersectionObserver) reveal is skipped entirely so the
-   two don't fight each other - see the "scrollDrivenSupported" check in
-   the script at the bottom of the page. Unsupported browsers keep using
-   the JS/transition version above untouched. */
-@supports (animation-timeline: view()) {
-  .reveal-up {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: none;
-    animation: reveal-up-scroll linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 55%;
-  }
-}
-@keyframes reveal-up-scroll {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Scroll reveal is driven entirely by JS (IntersectionObserver toggling
+   .is-visible) for every .reveal-up section, including the hero - see the
+   reveal script at the bottom of the page. An earlier version used the
+   native CSS animation-timeline: view() for browsers that support it, but
+   that fights with content-visibility: auto (used below for scroll
+   performance on most sections): the browser skips layout for a section
+   until it's near the viewport, so it can't compute the section's scroll
+   progress correctly and the animation silently never plays. JS-driven
+   IntersectionObserver has no such dependency on render state, so it's
+   the one mechanism used everywhere - consistent across desktop and
+   mobile, and across browsers. */
+.hero-load {
+  transition-duration: 0.7s;
 }
 
 /* ===========================

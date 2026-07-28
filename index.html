@@ -180,7 +180,7 @@
   </script>
 
   <!-- Video Slideshow Section -->
-  <section id="video-slideshow" class="reveal-up video-slideshow">
+  <section id="video-slideshow" class="reveal-up video-slideshow hero-load">
     <div class="video-slides">
       <!-- poster="" on every slide: a small (~20-30KB) still JPG of that
            video's first frame, in a new videos/posters/ folder you supply.
@@ -346,7 +346,7 @@
     })();
   </script>
   <!-- Home Section -->
- <section id="home" class="reveal-up home">
+ <section id="home" class="reveal-up home hero-load">
   <!-- Hero content -->
   <div class="hero-content">
     <div class="logo-container">
@@ -2257,50 +2257,64 @@ const PRODUCTS_DATA = {
 </script>
 
 <!-- Script for scroll-reveal (sections fade + slide up into view, whether the
-     user scrolls naturally or a nav-link click smooth-scrolls the page there).
-     Browsers that support native CSS scroll-driven animations
-     (animation-timeline: view()) get a true scroll-linked fade purely from
-     style.css, with no JS involved at all - so this whole block is skipped
-     there to avoid the two reveal mechanisms fighting each other. -->
+     user scrolls naturally or a nav-link click smooth-scrolls the page
+     there). Runs via IntersectionObserver for every section, in every
+     browser - including ones that support native CSS scroll-driven
+     animations (animation-timeline: view()). That native approach was
+     dropped: most sections below also use content-visibility: auto for
+     scroll performance, and a scroll-driven animation can't reliably
+     measure a section's scroll progress while the browser is skipping
+     its layout until it's near the viewport - so the animation would
+     silently never play. IntersectionObserver has no such dependency and
+     behaves the same on desktop and mobile. -->
 <script>
-  const scrollDrivenSupported = window.CSS && CSS.supports && CSS.supports("animation-timeline: view()");
-
-  if (!scrollDrivenSupported) {
-    const revealEls = document.querySelectorAll(".reveal-up");
-
-    function playReveal(el) {
-      // Two rAFs guarantee the browser has actually painted the hidden
-      // (opacity:0 / translateY) state at least once before we flip the
-      // class. Without this, a section that's already in view the instant
-      // the page opens (like the hero) can have its "is-visible" class
-      // applied in the same frame it's created in - so the browser never
-      // paints anything to transition *from*, and it just appears static
-      // instead of animating up. This is what makes the very first section
-      // animate immediately when the site opens, not just on later scroll.
+  function playReveal(el) {
+    // Two rAFs guarantee the browser has actually painted the hidden
+    // (opacity:0 / translateY) state at least once before we flip the
+    // class. Without this, a section that's already in view the instant
+    // the page opens (like the hero) can have its "is-visible" class
+    // applied in the same frame it's created in - so the browser never
+    // paints anything to transition *from*, and it just appears static
+    // instead of animating up. This is what makes the very first section
+    // animate immediately when the site opens, not just on later scroll.
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.classList.add("is-visible");
-        });
+        el.classList.add("is-visible");
+        // Dropping will-change once the transition ends frees up the GPU
+        // layer/memory the browser reserved for it - on a page this long,
+        // keeping ~19 sections' worth of layers alive after they've
+        // already animated in is unnecessary overhead, and it's what
+        // mobile devices in particular have the least headroom for.
+        el.addEventListener("transitionend", () => {
+          el.style.willChange = "auto";
+        }, { once: true });
       });
-    }
-
-    // rootMargin's bottom value is positive on purpose: it grows the
-    // trigger zone downward past the actual viewport edge, so a section
-    // starts (and finishes) animating in slightly *before* it scrolls into
-    // view rather than while the user is already looking at it. On slower
-    // mobile devices that lead time is what stops images/logos inside a
-    // section from visibly "popping in late" after you've already scrolled
-    // to them.
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        playReveal(entry.target);
-        revealObserver.unobserve(entry.target); // animate in once, not on every scroll
-      });
-    }, { threshold: 0, rootMargin: "0px 0px 120px 0px" });
-
-    revealEls.forEach(el => revealObserver.observe(el));
+    });
   }
+
+  // Hero (video-slideshow + home) always fades/slides in the moment the
+  // page loads, since it's already inside the viewport at load - there's
+  // no scrolling for an observer to react to yet.
+  document.querySelectorAll(".hero-load").forEach(playReveal);
+
+  const revealEls = document.querySelectorAll(".reveal-up:not(.hero-load)");
+
+  // rootMargin's bottom value is positive on purpose: it grows the
+  // trigger zone downward past the actual viewport edge, so a section
+  // starts (and finishes) animating in slightly *before* it scrolls into
+  // view rather than while the user is already looking at it. On slower
+  // mobile devices that lead time is what stops images/logos inside a
+  // section from visibly "popping in late" after you've already scrolled
+  // to them.
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      playReveal(entry.target);
+      revealObserver.unobserve(entry.target); // animate in once, not on every scroll
+    });
+  }, { threshold: 0, rootMargin: "0px 0px 120px 0px" });
+
+  revealEls.forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
