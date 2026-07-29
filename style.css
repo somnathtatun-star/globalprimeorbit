@@ -2582,6 +2582,7 @@ header nav ul li a.active {
   cursor: pointer;
   animation: floatingOfferFloat 3s ease-in-out infinite,
              floatingOfferGlow 1.4s ease-in-out infinite;
+  will-change: transform, filter;
 }
 
 .floating-offer-img {
@@ -2639,13 +2640,26 @@ header nav ul li a.active {
 
 @media (max-width: 768px) {
   .floating-offer-wrap {
-    width: 128px;
-    height: 128px;
+    width: 84px;
+    height: 84px;
     left: 10px;
   }
   .floating-offer-close {
     width: 18px;
     height: 18px;
     font-size: 12px;
+  }
+  /* The pulsing glow uses an animated drop-shadow filter, which forces the
+     browser to re-render the badge's shadow every frame. That cost scales
+     with the element's pixel size, so once the badge was made bigger it
+     became noticeably heavier on phones (weaker GPUs, more frames dropped)
+     and showed up as page-wide scroll/tap lag even though nothing else on
+     the page changed. Shrinking the badge already helps, but the filter
+     animation is capped further here too: fewer/smaller drop-shadow layers
+     and a static glow instead of an animated one, so mobile only pays for
+     the lightweight floating motion, not the expensive filter repaint. */
+  .floating-offer {
+    animation: floatingOfferFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.75));
   }
 }
