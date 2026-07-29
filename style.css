@@ -2569,8 +2569,8 @@ header nav ul li a.active {
   top: 50%;
   transform: translateY(-50%);
   z-index: 9999;
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
 }
 
 .floating-offer {
@@ -2639,8 +2639,8 @@ header nav ul li a.active {
 
 @media (max-width: 768px) {
   .floating-offer-wrap {
-    width: 64px;
-    height: 64px;
+    width: 128px;
+    height: 128px;
     left: 10px;
   }
   .floating-offer-close {
