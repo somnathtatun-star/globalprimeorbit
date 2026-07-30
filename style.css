@@ -1162,11 +1162,21 @@ header nav ul li a.active {
   box-shadow: var(--shadow-md);
 }
 .modal-content {
-  width: 100%;
+  /* width/height are intentionally "auto" (not 100%/fixed): the box must
+     hug the image's own aspect ratio. Forcing width:100% while capping
+     height with max-height made portrait/square photos (e.g. the
+     Mushroom shots) render inside a box wider than the image itself,
+     leaving visible background-colour "gap" on the sides (pillarboxing)
+     and reserving more vertical space than the photo actually needed -
+     which is what pushed the Order Now button below the fold on mobile. */
+  width: auto;
+  height: auto;
+  max-width: 100%;
   max-height: 46vh;
-  max-width: none;
   object-fit: contain;
   display: block;
+  margin: 0 auto;
+  align-self: center;
   background: #05131f;
   touch-action: pan-y;
   cursor: grab;
@@ -2630,8 +2640,8 @@ header nav ul li a.active {
   .footer-logo-group { justify-content: center; }
   .footer-nav ul { justify-content: center; width: 100%; }
 
-  .product-slide { width: 97vw; max-height: 85vh; }
-  .modal-content { max-height: 38vh; }
+  .product-slide { width: 97vw; max-height: 85vh; max-height: 85dvh; }
+  .modal-content { max-height: 34vh; }
   .product-slide-info { padding: 16px 16px 20px; }
   .modal .close {
     position: static;
@@ -2644,6 +2654,7 @@ header nav ul li a.active {
 }
 @media (max-width: 480px) {
   .product-slide { width: 98vw; }
+  .modal-content { max-height: 30vh; }
   .product-slide-info { padding: 14px 14px 18px; }
   .logo { font-size: 1.1rem; }
   .logo-subtitle { font-size: 0.52rem; letter-spacing: 0.24em; }
