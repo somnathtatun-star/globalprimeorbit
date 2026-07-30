@@ -84,9 +84,9 @@
 <body>
   <!-- Floating Special Offer Badge -->
   <div class="floating-offer-wrap" id="floatingOfferWrap">
-    <a href="https://www.facebook.com/share/196RpNYVJY/" target="_blank" rel="noopener noreferrer" class="floating-offer" aria-label="Special Offer - View on Facebook (opens in a new tab)">
+    <div class="floating-offer" aria-label="Special Offer">
       <img src="images/specialoffer.png" alt="Special Offer" class="floating-offer-img" loading="eager" decoding="async">
-    </a>
+    </div>
     <button type="button" class="floating-offer-close" id="floatingOfferClose" aria-label="Dismiss special offer">&times;</button>
   </div>
 
@@ -135,8 +135,8 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#export-process">Process</a></li>
         <li><a href="#global-presence">Global Research</a></li>
-        <li><a href="#partners">Leadership</a></li>
-        <li><a href="#profile">Profile</a></li>
+        <li><a href="leadership.html" target="_blank" rel="noopener">Leadership</a></li>
+        <li><a href="profile.html" target="_blank" rel="noopener">Profile</a></li>
         <li><a href="#blog">Our Blog</a></li>
         <li class="nav-quote-item"><a href="#contact" class="nav-quote-btn">Request a Quote</a></li>
       </ul>
@@ -683,14 +683,17 @@
     <div id="imageModal" class="modal" style="display:none;">
       <span class="close">&times;</span>
       <div class="product-slide" id="productSlide">
+        <div class="product-thumb-tags product-thumb-tags-modal">
+          <span class="product-tag product-tag-verified"><i class="fa-solid fa-check"></i> Verified</span>
+          <span class="product-tag product-tag-export">Export Ready</span>
+        </div>
         <img class="modal-content" id="modalImage" alt="">
         <div class="product-slide-info" id="productSlideOverlay">
           <p id="modalCaption" class="product-slide-title"></p>
+          <a id="modalOrderBtn" class="product-order-btn product-order-btn-modal" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Order Now</a>
           <div class="product-slide-badges" id="productSlideBadges"></div>
           <p id="modalDescription" class="modal-description"></p>
-          <a id="modalWhatsapp" class="modal-whatsapp-btn" href="#" target="_blank" rel="noopener">
-            <i class="fab fa-whatsapp"></i> Order Now
-          </a>
+          <p id="modalHealthNote" class="product-health-note product-health-note-modal"></p>
         </div>
       </div>
       <p class="modal-swipe-hint">⟵ Swipe to view more ⟶</p>
@@ -973,7 +976,19 @@ const PRODUCTS_DATA = {
   "productsHandicraftCard": { title: "Handicraft", subcategories: [] },
   "productsHandlooms&JewelleriesCard": { title: "Handlooms & Jewelleries", subcategories: [] },
   "productsCowDungCard": { title: "Cow Dung", subcategories: [] },
-  "productsMushroomsCard": { title: "Mushrooms", subcategories: [] },
+  "productsMushroomsCard": {
+  title: "Mushrooms",
+  subcategories: [
+    {
+      title: "Mushrooms",
+      logo: "images/mushroom.png",
+      images: [
+        { src: "images/Button Mushroom.jpg", name: "Button Mushroom" },
+        { src: "images/Oyester Mushroom.jpg", name: "Oyster Mushroom" }
+      ]
+    }
+  ]
+},
   "productsFertilizersCard": { title: "Fertilizers", subcategories: [] },
   "productsGangajalCard": { title: "Gangajal", subcategories: [] },
   "productsDrinksCard": { title: "Drinks", subcategories: [] },
@@ -1042,23 +1057,34 @@ const PRODUCTS_DATA = {
     galleryTitle.textContent = sub.title + " Products";
     galleryContent.innerHTML = "";
     sub.images.forEach(img => {
-      const wrap = document.createElement("div");
-      wrap.className = "product-thumb";
-      wrap.innerHTML = `
-        <img src="${img.src}" alt="${img.name}" data-name="${img.name}" data-category="${category.title}" data-sub="${sub.title}" loading="lazy" decoding="async">
-        <span class="product-thumb-caption">${img.name}</span>
+      const card = document.createElement("div");
+      card.className = "product-thumb-card";
+      card.innerHTML = `
+        <div class="product-thumb">
+          <div class="product-thumb-tags">
+            <span class="product-tag product-tag-verified"><i class="fa-solid fa-check"></i> Verified</span>
+            <span class="product-tag product-tag-export">Export Ready</span>
+          </div>
+          <img src="${img.src}" alt="${img.name}" data-name="${img.name}" data-category="${category.title}" data-sub="${sub.title}" loading="lazy" decoding="async">
+        </div>
+        <div class="product-thumb-bar">
+          <span class="product-thumb-name">${img.name}</span>
+        </div>
       `;
-      galleryContent.appendChild(wrap);
+      galleryContent.appendChild(card);
     });
 
-    // wire up modal clicks for this gallery
-    galleryContent.querySelectorAll(".product-thumb").forEach(thumbEl => {
-      thumbEl.addEventListener("click", () => {
+    // Details button (and the image itself) open the animated popup - full
+    // description, badges, and the health note only ever appear there,
+    // sliding up from beneath the image; nothing extra shows on the card.
+    galleryContent.querySelectorAll(".product-thumb-card").forEach(cardEl => {
+      const openThisProduct = () => {
         currentImages = [...galleryContent.querySelectorAll(".product-thumb img")];
-        currentIndex = currentImages.indexOf(thumbEl.querySelector("img"));
+        currentIndex = currentImages.indexOf(cardEl.querySelector(".product-thumb img"));
         showImage();
         openModal();
-      });
+      };
+      cardEl.querySelector(".product-thumb").addEventListener("click", openThisProduct);
     });
 
     subGrid.style.display = "none";
@@ -1085,8 +1111,9 @@ const PRODUCTS_DATA = {
     document.body.style.overflow = ""; // restore normal scrolling
   }
 
-  const modalWhatsapp = document.getElementById("modalWhatsapp");
   const modalDescription = document.getElementById("modalDescription");
+  const modalHealthNote = document.getElementById("modalHealthNote");
+  const modalOrderBtn = document.getElementById("modalOrderBtn");
   const WHATSAPP_NUMBER = "916296898578"; // Tanushree Singha, Partner
 
   // Rich, category-level detail used to describe every product - covers
@@ -1156,6 +1183,12 @@ const PRODUCTS_DATA = {
       taste: "a naturally sweet, refreshing taste with a distinct tropical aroma",
       benefits: "naturally hydrating with electrolytes, and a versatile source of healthy fats",
       uses: "used fresh, as coconut water, or processed into oil, milk, and desiccated forms"
+    },
+    "Mushrooms": {
+      tag: "Nutrient-Rich & Fresh",
+      taste: "a mild, earthy flavor with a delicate, meaty texture",
+      benefits: "a low-calorie source of protein, fibre, and essential vitamins for a healthy diet",
+      uses: "used fresh or dried across culinary, health food, and food processing applications"
     }
   };
   const DEFAULT_PRODUCT_DETAILS = {
@@ -1170,8 +1203,7 @@ const PRODUCTS_DATA = {
   // look up the right taste/health/use detail above.
   function buildProductCopy(name, sub, cat) {
     const d = PRODUCT_CATEGORY_DETAILS[sub] || PRODUCT_CATEGORY_DETAILS[cat] || DEFAULT_PRODUCT_DETAILS;
-    const usesSentence = d.uses.charAt(0).toUpperCase() + d.uses.slice(1);
-    const description = `${name} brings ${d.taste}. As ${d.benefits}, it's one of the highlights of our ${sub || cat} range. ${usesSentence}. Every batch is quality-checked by GLOBAL PRIME ORBIT before export, with full documentation for smooth customs clearance. Contact us for current availability, packaging options, and pricing.`;
+    const description = `${name} brings ${d.taste} — ${d.benefits}.`;
     return { description, badges: [d.tag, "Export Grade", "Quality Checked"] };
   }
 
@@ -1198,11 +1230,12 @@ const PRODUCTS_DATA = {
     modalImg.src = current.src;
     modalImg.alt = productName;
     modalCaption.textContent = productName;
+    const orderMessage = `Hi GLOBAL PRIME ORBIT, I'm interested in "${productName}". Could you share more details and pricing?`;
+    modalOrderBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderMessage)}`;
     const copy = buildProductCopy(productName, current.dataset.sub, current.dataset.category);
     modalDescription.textContent = copy.description;
     productSlideBadges.innerHTML = copy.badges.map(b => `<span class="product-badge">${b}</span>`).join("");
-    const message = `Hi GLOBAL PRIME ORBIT, I'm interested in "${productName}". Could you share more details and pricing?`;
-    modalWhatsapp.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    modalHealthNote.textContent = `Maintain Your Health, Stay fit and fine with containing consumption of ${productName} product.`;
 
     const revealSlide = () => {
       requestAnimationFrame(() => {
@@ -2045,7 +2078,8 @@ const PRODUCTS_DATA = {
           <li><a href="#services">Services</a></li>
           <li><a href="#export-process">Process</a></li>
           <li><a href="#global-presence">Global Research</a></li>
-          <li><a href="#partners">Leadership</a></li>
+          <li><a href="leadership.html" target="_blank" rel="noopener">Leadership</a></li>
+          <li><a href="profile.html" target="_blank" rel="noopener">Profile</a></li>
           <li><a href="#blog">Our Blog</a></li>
           <li><a href="#contact" class="footer-nav-quote">Request a Quote</a></li>
         </ul>
