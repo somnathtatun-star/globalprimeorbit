@@ -592,6 +592,12 @@
    <input type="text" id="productSearch" placeholder="Search products...">
    <div id="searchResults" class="search-results"></div>
 
+    <!-- Scroll-contained viewport: everything that changes while browsing
+         (main grid -> sub grid -> gallery) lives inside this fixed-height
+         box. Only this box scrolls while browsing products; the rest of
+         the page stays put, so a long gallery never pushes other sections
+         far away or forces a huge scroll to reach them. -->
+    <div id="productsViewport">
     <!-- Main Product Grid -->
     <section class="products-grid" id="productsMainGrid">
      <div class="products-card" id="productsGrainsCard">
@@ -679,6 +685,8 @@
       <div class="products-gallery" id="galleryContent"></div>
       <button class="back-button" id="backToSubGrid">⬅ Back</button>
     </section>
+    </div>
+    <!-- /#productsViewport -->
 
 	<!-- Modal for Image Popup -->
     <div id="imageModal" class="modal" style="display:none;">
@@ -1007,6 +1015,15 @@ const PRODUCTS_DATA = {
   const galleryTitle = document.getElementById("galleryTitle");
   const galleryContent = document.getElementById("galleryContent");
   const backToSubGrid = document.getElementById("backToSubGrid");
+  const productsViewport = document.getElementById("productsViewport");
+
+  // Scrolls the internal products panel back to its own top whenever the
+  // view changes (category -> subcategory -> gallery, and back again).
+  // Without this, switching views could leave the visitor stranded
+  // mid-scroll inside the panel, looking at nothing.
+  function resetProductsScroll() {
+    if (productsViewport) productsViewport.scrollTop = 0;
+  }
 
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImage");
@@ -1020,6 +1037,7 @@ const PRODUCTS_DATA = {
     mainGrid.style.display = "grid";
     subGrid.style.display = "none";
     galleryView.style.display = "none";
+    resetProductsScroll();
   }
 
   function showSubGrid(categoryKey) {
@@ -1048,6 +1066,7 @@ const PRODUCTS_DATA = {
     mainGrid.style.display = "none";
     subGrid.style.display = "grid";
     galleryView.style.display = "none";
+    resetProductsScroll();
   }
 
   function showGallery(categoryKey, subIndex) {
@@ -1090,6 +1109,7 @@ const PRODUCTS_DATA = {
 
     subGrid.style.display = "none";
     galleryView.style.display = "block";
+    resetProductsScroll();
   }
 
   backToSubGrid.onclick = () => {
