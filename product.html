@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Our Products | GLOBAL PRIME ORBIT</title>
+  <meta name="description" content="Explore the full product catalog from GLOBAL PRIME ORBIT — agro commodities, grains, pulses, tea, textiles & handloom, handicrafts, jewellery, fruits, vegetables and more, supplied worldwide.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="GLOBAL PRIME ORBIT">
+  <link rel="canonical" href="https://www.globalprimeorbit.com/product.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+</head>
+<body>
+  <header>
+    <div class="logo-group">
+      <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img" width="46" height="46" fetchpriority="high" decoding="async">
+      <div class="logo-text">
+        <span class="logo">GLOBAL PRIME ORBIT</span>
+        <span class="logo-subtitle">IMPORT EXPORT TRADE</span>
+      </div>
+    </div>
+    <nav>
+      <button class="menu-toggle-btn" id="dotsMenuBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+      <ul id="navMenu">
+        <li class="nav-close-item">
+          <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">&times;</button>
+        </li>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#export-process">Process</a></li>
+        <li><a href="index.html#global-presence">Global Research</a></li>
+        <li><a href="leadership.html" target="_blank" rel="noopener">Leadership</a></li>
+        <li><a href="profile.html" target="_blank" rel="noopener">Profile</a></li>
+        <li><a href="product.html" target="_blank" rel="noopener">Product</a></li>
+        <li><a href="index.html#blog">Our Blog</a></li>
+        <li class="nav-quote-item"><a href="index.html#contact" class="nav-quote-btn">Request a Quote</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <script>
+    (function () {
+      const dotsBtn = document.getElementById("dotsMenuBtn");
+      const closeBtn = document.getElementById("navCloseBtn");
+      const navMenu = document.getElementById("navMenu");
+
+      function closeMenu() {
+        navMenu.classList.remove("open");
+        dotsBtn.setAttribute("aria-expanded", "false");
+      }
+
+      dotsBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = navMenu.classList.toggle("open");
+        dotsBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeMenu();
+      });
+
+      navMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!navMenu.contains(e.target) && !dotsBtn.contains(e.target)) closeMenu();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+      });
+    })();
+  </script>
+
+<main>
+<!-- Products Section -->
+<section id="products" class="reveal-up products">
+  <div id="productsPage">
+  <p class="eyebrow">Catalog</p>
+  <h2 class="products-heading">Our Products</h2>
+   <input type="text" id="productSearch" placeholder="Search products...">
+   <div id="searchResults" class="search-results"></div>
+
+    <!-- Main Product Grid -->
+    <section class="products-grid" id="productsMainGrid">
+     <div class="products-card" id="productsGrainsCard">
+  <img src="images/grain.png" alt="Grains Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Grains</h2>
+</div>
+      <div class="products-card" id="productsPulses&CerealsCard">
+  <img src="images/pulses.png" alt="Pulses & Cereals Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Pulses & Cereals</h2>
+</div>
+      <div class="products-card" id="productsTeaCard">
+  <img src="images/tea.png" alt="Tea Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Tea</h2>
+</div>
+      <div class="products-card" id="productsClothing&ApparalCard">
+  <img src="images/clothing.png" alt="Clothing & Apparal Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Clothing & Apparal</h2>
+</div>
+      <div class="products-card" id="productsHandicraftCard">
+  <img src="images/handicraft.png" alt="Handicraft Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Handicraft</h2>
+</div>
+      <div class="products-card" id="productsHandlooms&JewelleriesCard">
+  <img src="images/jewellery.png" alt="Handlooms & Jewelleries Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Handlooms & Jewelleries</h2>
+</div>
+      <div class="products-card" id="productsFruitsCard">
+  <img src="images/fruits.png" alt="Fruits Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Fruits</h2>
+</div>
+      <div class="products-card" id="productsVegetablesCard">
+  <img src="images/vegetables.png" alt="Vegetables Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Vegetables</h2>
+</div>
+      <div class="products-card" id="productsCoconutsCard">
+  <img src="images/coconut.png" alt="Coconuts Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Coconuts</h2>
+</div>
+      <div class="products-card" id="productsCowDungCard">
+  <img src="images/cow dung cake.png" alt="Cow Dung Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Cow Dung</h2>
+</div>
+      <div class="products-card" id="productsAlloveraCard">
+  <img src="images/aloe.png" alt="Allovera Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Allovera</h2>
+</div>
+      <div class="products-card" id="productsMushroomsCard">
+  <img src="images/mushroom.png" alt="Mushrooms Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Mushrooms</h2>
+</div>
+      <div class="products-card" id="productsFertilizersCard">
+  <img src="images/fertilizer.png" alt="Fertilizers Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Fertilizers</h2>
+</div>
+      <div class="products-card" id="productsGangajalCard">
+  <img src="images/gangajal.png" alt="Gangajal Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Gangajal</h2>
+</div>
+      <div class="products-card" id="productsDrinksCard">
+  <img src="images/drink.png" alt="Drinks Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Drinks</h2>
+</div>
+     <div class="products-card" id="productsTulsiCard">
+  <img src="images/tulsi.png" alt="Tulsi Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Tulsi</h2>
+</div>
+     <div class="products-card" id="productsInsenceStickCard">
+  <img src="images/stick.png" alt="Grains Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Insence Stick</h2>
+</div>
+ <div class="products-card" id="productsSpicesCard">
+  <img src="images/spices.png" alt="Spices Logo" class="products-image" loading="lazy" decoding="async">
+  <h2 class="products-title">Spices</h2>
+</div>
+    </section>
+
+    <!-- Sub-category grid (2 cards) - filled in dynamically for whichever main card was clicked -->
+    <section class="products-inner-grid" id="productsSubGrid" style="display:none;">
+      <!-- sub-category cards injected here by JS -->
+    </section>
+
+    <!-- Product gallery - filled in dynamically for whichever sub-card was clicked -->
+    <section class="products-view" id="productsGalleryView" style="display:none;">
+      <h2 id="galleryTitle">Products</h2>
+      <div class="products-gallery" id="galleryContent"></div>
+      <button class="back-button" id="backToSubGrid">⬅ Back</button>
+    </section>
+
+	<!-- Modal for Image Popup -->
+    <div id="imageModal" class="modal" style="display:none;">
+      <span class="close">&times;</span>
+      <div class="product-slide" id="productSlide">
+        <div class="product-thumb-tags product-thumb-tags-modal">
+          <span class="product-tag product-tag-verified"><i class="fa-solid fa-check"></i> Verified</span>
+          <span class="product-tag product-tag-export">Export Ready</span>
+        </div>
+        <img class="modal-content" id="modalImage" alt="">
+        <div class="product-slide-info" id="productSlideOverlay">
+          <p id="modalCaption" class="product-slide-title"></p>
+          <a id="modalOrderBtn" class="product-order-btn product-order-btn-modal" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Order Now</a>
+          <div class="product-slide-badges" id="productSlideBadges"></div>
+          <p id="modalDescription" class="modal-description"></p>
+          <p id="modalHealthNote" class="product-health-note product-health-note-modal"></p>
+        </div>
+      </div>
+      <p class="modal-swipe-hint">⟵ Swipe to view more ⟶</p>
+    </div>
+  </div>
+</section>
+
+    <!-- Products Script -->
+    <script>
+/* ==========================================================================
+   PRODUCTS DATA
+   ========================================================================== */
+const PRODUCTS_DATA = {
+  "productsGrainsCard": {
+  title: "Grains",
+  subcategories: [
+    {
+      title: "Rice",
+      logo: "images/rice.png",
+      images: [
+        { src: "images/Arborio Rice.jpg", name: "Arborio Rice" },
+        { src: "images/Australian Sushi.jpg", name: "Australian Sushi" },
+        { src: "images/Bashmati Rice.jpg", name: "Bashmati Rice" },
+        { src: "images/Biodynamic Red Fed Brown.jpg", name: "Biodynamic Red Fed Brown" },
+        { src: "images/Black Rice.jpg", name: "Black Rice" },
+        { src: "images/Bomba Rice.jpg", name: "Bomba Rice" },
+        { src: "images/Brown Rice.jpg", name: "Brown Rice" },
+        { src: "images/Glutinuos Rice.jpg", name: "Glutinuos Rice" },
+        { src: "images/Jasmine Rice.jpg", name: "Jasmine Rice" },
+        { src: "images/Long Grain Rice.jpg", name: "Long Grain Rice" },
+        { src: "images/Medium Grain Rice.jpg", name: "Medium Grain Rice" },
+        { src: "images/Parboiled Rice.jpg", name: "Parboiled Rice" },
+        { src: "images/Red Rice.jpg", name: "Red Rice" },
+        { src: "images/Rosmatta Rice.jpg", name: "Rosmatta Rice" },
+        { src: "images/Short Grain Rice.jpg", name: "Short Grain Rice" },
+        { src: "images/Sticky Rice.jpg", name: "Sticky Rice" },
+        { src: "images/Valencia Rice.jpg", name: "Valencia Rice" },
+        { src: "images/Wild Rice.jpg", name: "Wild Rice" }
+      ]
+    },
+    {
+      title: "Wheat",
+      logo: "images/wheat.png",
+      images: [
+        { src: "images/Einkorn Wheat.jpg", name: "Einkorn Wheat" },
+        { src: "images/Hard Red Wheat.jpg", name: "Hard Red Wheat" },
+        { src: "images/Hard White Wheat.jpg", name: "Hard White Wheat" },
+        { src: "images/Kharosan Wheat.jpg", name: "Kharosan Wheat" },
+        { src: "images/Rye Wheat.jpg", name: "Rye Wheat" },
+        { src: "images/Soft White Wheat.jpg", name: "Soft White Wheat" },
+        { src: "images/Spelt Wheat.jpg", name: "Spelt Wheat" }
+      ]
+    },
+    {
+      title: "Corn",
+      logo: "images/corn.png",
+      images: [
+        { src: "images/Dent Corn.jpg", name: "Dent Corn" },
+        { src: "images/Flint Corn.jpg", name: "Flint Corn" },
+        { src: "images/Flour Corn.jpg", name: "Flour Corn" },
+        { src: "images/Pod Corn.jpg", name: "Pod Corn" },
+        { src: "images/Sweet Corn.jpg", name: "Sweet Corn" }
+      ]
+    },
+    {
+      title: "Millet",
+      logo: "images/millet.png",
+      images: [
+        { src: "images/Amarnath Millet.jpg", name: "Amarnath Millet" },
+        { src: "images/Barnyard Millet.jpg", name: "Barnyard Millet" },
+        { src: "images/Browntop Millet.jpg", name: "Browntop Millet" },
+        { src: "images/Finger Millet.jpg", name: "Finger Millet" },
+        { src: "images/Foxtail Millet.jpg", name: "Foxtail Millet" },
+        { src: "images/Kodo Millet.jpg", name: "Kodo Millet" },
+        { src: "images/Little Millet.jpg", name: "Little Millet" },
+        { src: "images/Pearl Millet.jpg", name: "Pearl Millet" },
+        { src: "images/Proso Millet.jpg", name: "Proso Millet" },
+        { src: "images/Sorghum Millet.jpg", name: "Sorghum Millet" }
+      ]
+    }
+  ]
+},
+
+  "productsPulses&CerealsCard": {
+  title: "Pulses & Cereals",
+  subcategories: [
+    {
+      title: "All Kinds of Daal",
+      logo: "images/daal.png",
+      images: [
+        { src: "images/Adzuki Beans.jpg", name: "Adjuki Beans" },
+        { src: "images/Black Eyed Beans.jpg", name: "Black Eyed Beans" },
+        { src: "images/Black Gram Beans.jpg", name: "Black Gram Beans" },
+        { src: "images/Green Gram.jpg", name: "Green Gram" },
+        { src: "images/Green Peas.jpg", name: "Green Peas" },
+        { src: "images/Kidney Beans.jpg", name: "Kidney Beans" },
+        { src: "images/Red Lentils.jpg", name: "Red Lentils" },
+        { src: "images/Split & Skinned Black Gram.jpg", name: "Split & Skinned Black Gram" },
+        { src: "images/Split & Skinned Green Gram.jpg", name: "Split & Skinned Green Gram" },
+        { src: "images/Split Bengal Gram.jpg", name: "Split Bengal Gram" },
+        { src: "images/Split Black Gram.jpg", name: "Split Black Gram" },
+        { src: "images/Split Green Graam.jpg", name: "Split Green Gram" },
+        { src: "images/Split Red Lentils.jpg", name: "Split Red Lentils" },
+        { src: "images/Turkish Gram.jpg", name: "Turkish Gram" },
+        { src: "images/White Peas.jpg", name: "White Peas" },
+        { src: "images/Yellow Pigeon Peas.jpg", name: "Yellow Pigeon Peas" }
+      ]
+    }
+  ]
+},
+
+
+ "productsTeaCard": {
+  title: "Tea",
+  subcategories: [
+    {
+      title: "Tea",
+      logo: "images/tea2.png",
+      images: [
+        { src: "images/Black Tea.jpg", name: "Black Tea" },
+        { src: "images/Green Tea.jpg", name: "Green Tea" },
+        { src: "images/Oolong Tea.jpg", name: "Oolong Tea" },
+        { src: "images/Puer Tea.jpg", name: "Puer Tea" },
+        { src: "images/White Tea.jpg", name: "White Tea" },
+        { src: "images/Yellow Tea.jpg", name: "Yellow Tea" }
+      ]
+    }
+  ]
+},
+
+
+ "productsAlloveraCard": {
+  title: "Allovera",
+  subcategories: [
+    {
+      title: "Alloevera",
+      logo: "images/aloe2.png",
+      images: [
+        { src: "images/Aloe Vera.jpg", name: "Aloe Vera" },
+        { src: "images/Cape Aloe.jpg", name: "Cape Aloe" },
+        { src: "images/Climbing Aloe.jpg", name: "Climbing Aloe" },
+        { src: "images/Coral Aloe.jpg", name: "Coral Aloe" },
+        { src: "images/Golden Tooth Aloe.jpg", name: "Golden Tooth Aloe" },
+        { src: "images/Jewel Aloe.jpg", name: "Jewel Aloe" },
+        { src: "images/Krantz Aloe.jpg", name: "Krantz Aloe" },
+        { src: "images/Lace Aloe.jpg", name: "Lace Aloe" },
+        { src: "images/Malagasy Tree Aloe.jpg", name: "Malagasy Tree Aloe" },
+        { src: "images/Mountain Aloe.jpg", name: "Mountain Aloe" },
+        { src: "images/Red Aloe.jpg", name: "Red Aloe" },
+        { src: "images/Sand Aloe.jpg", name: "Sand Aloe" },
+        { src: "images/Short-leaved Aloe.jpg", name: "Short-leaved Aloe" },
+        { src: "images/Snake Aloe.jpg", name: "Snake Aloe" },
+        { src: "images/Soap Aloe.jpg", name: "Soap Aloe" },
+        { src: "images/Spiral Aloe.jpg", name: "Spiral Aloe" },
+        { src: "images/Sunset Aloe.jpg", name: "Sunset Aloe" },
+        { src: "images/Tiger Tooth Aloe.jpg", name: "Tiger Tooth Aloe" },
+        { src: "images/Tree Aloe.jpg", name: "Tree Aloe" },
+        { src: "images/Vanbalenii Aloe.jpg", name: "Vanbalenii Aloe" }
+      ]
+    }
+  ]
+},
+
+ "productsFruitsCard": {
+  title: "Fruits",
+  subcategories: [
+    {
+      title: "Fruits",
+      logo: "images/fruits2.png",
+      images: [
+        { src: "images/Apple.jpg", name: "Apple" },
+        { src: "images/Apricot.jpg", name: "Apricot" },
+        { src: "images/Banana.jpg", name: "Banana" },
+        { src: "images/Blackberry.jpg", name: "Blackberry" },
+        { src: "images/Carambola.jpg", name: "Carambola" },
+        { src: "images/Cherry.jpg", name: "Cherry" },
+        { src: "images/Coconut.jpg", name: "Coconut" },
+        { src: "images/Custard Apple.jpg", name: "Custard Apple" },
+        { src: "images/Date.jpg", name: "Date" },
+        { src: "images/Dragon Fruit.jpg", name: "Dragon Fruit" },
+        { src: "images/fig.jpg", name: "Fig" },
+        { src: "images/Grapefruit.jpg", name: "Grapefruit" },
+        { src: "images/Grapes.jpg", name: "Grapes" },
+        { src: "images/Guava.jpg", name: "Guava" },
+        { src: "images/Jujube.jpg", name: "Jujube" },
+        { src: "images/Kiwi.jpg", name: "Kiwi" },
+        { src: "images/Lime.jpg", name: "Lime" },
+        { src: "images/Litchi.jpg", name: "Litchi" },
+        { src: "images/Loquat.jpg", name: "Loquat" },
+        { src: "images/Mango.jpg", name: "Mango" },
+        { src: "images/Mangosteen.jpg", name: "Mangosteen" },
+        { src: "images/Melon.jpg", name: "Melon" },
+        { src: "images/Orange.jpg", name: "Orange" },
+        { src: "images/Papaya.jpg", name: "Papaya" },
+        { src: "images/Passion Fruit.jpg", name: "Passion Fruit" },
+        { src: "images/Peach.jpg", name: "Peach" },
+        { src: "images/Pear.jpg", name: "Pear" },
+        { src: "images/Physalis.jpg", name: "Physalis" },
+        { src: "images/Pineapple.jpg", name: "Pineapple" },
+        { src: "images/Plum.jpg", name: "Plum" },
+        { src: "images/Pomegranate.jpg", name: "Pomegranate" },
+        { src: "images/Rambutan.jpg", name: "Rambutan" },
+        { src: "images/Sapodilla.jpg", name: "Sapodilla" },
+        { src: "images/Strawberry.jpg", name: "Strawberry" },
+        { src: "images/Watermelon.jpg", name: "Watermelon" }
+      ]
+    }
+  ]
+},
+
+ "productsVegetablesCard": {
+  title: "Vegetables",
+  subcategories: [
+    {
+      title: "Vegetables",
+      logo: "images/vegetables2.png",
+      images: [
+        { src: "images/Apple Gourd.jpg", name: "Apple Gourd" },
+        { src: "images/Beans.jpg", name: "Beans" },
+        { src: "images/Bitter Gourd.jpg", name: "Bitter Gourd" },
+        { src: "images/Bottle Gourd.jpg", name: "Bottle Gourd" },
+        { src: "images/Broccoli.jpg", name: "Broccoli" },
+        { src: "images/Cabbage.jpg", name: "Cabbage" },
+        { src: "images/Capsicum.jpg", name: "Capsicum" },
+        { src: "images/Carrot.jpg", name: "Carrot" },
+        { src: "images/Cauliflower.jpg", name: "Cauliflower" },
+        { src: "images/Celery.jpg", name: "Celery" },
+        { src: "images/Chillies.jpg", name: "Chillies" },
+        { src: "images/Coriander.jpg", name: "Coriander" },
+        { src: "images/Corn.jpg", name: "Corn" },
+        { src: "images/Cucumber.jpg", name: "Cucumber" },
+        { src: "images/Eggplant.jpg", name: "Eggplant" },
+        { src: "images/Garlic.jpg", name: "Garlic" },
+        { src: "images/Ginger.jpg", name: "Ginger" },
+        { src: "images/Leek.jpg", name: "Leek" },
+        { src: "images/Mint.jpg", name: "Mint" },
+        { src: "images/Okra.jpg", name: "Okra" },
+        { src: "images/Onion.jpg", name: "Onion" },
+        { src: "images/Peas.jpg", name: "Peas" },
+        { src: "images/Potato.jpg", name: "Potato" },
+        { src: "images/Pumpkin.jpg", name: "Pumpkin" },
+        { src: "images/Raddish.jpg", name: "Raddish" },
+        { src: "images/Red Beetroot.jpg", name: "Red Beetroot" },
+        { src: "images/Red Cabbage.jpg", name: "Red Cabbage" },
+        { src: "images/Roman Cauliflower.jpg", name: "Roman Cauliflower" },
+        { src: "images/Spinach.jpg", name: "Spinach" },
+        { src: "images/Squash.jpg", name: "Squash" },
+        { src: "images/Sweet Potato.jpg", name: "Sweet Potato" },
+        { src: "images/Taro.jpg", name: "Taro" },
+        { src: "images/Tomato.jpg", name: "Tomato" },
+        { src: "images/Turnip.jpg", name: "Turnip" },
+        { src: "images/Yam.jpg", name: "Yam" }
+      ]
+    }
+  ]
+},
+
+  "productsCoconutsCard": {
+  title: "Coconuts",
+  subcategories: [
+    {
+      title: "Coconuts",
+      logo: "images/coconut2.png",
+      images: [
+        { src: "images/Green Coconut.jpg", name: "Green Coconut" },
+        { src: "images/Husk Coconut.jpg", name: "Husk Coconut" },
+        { src: "images/One Eye Coconut.jpg", name: "One Eye Coconut" },
+        { src: "images/Pollachi Coconut.jpg", name: "Pollachi Coconut" },
+        { src: "images/Row Coconut.jpg", name: "Row Coconut" },
+        { src: "images/Semi Husk Coconut.jpg", name: "Semi Husk Coconut" },
+        { src: "images/Tender Coconut.jpg", name: "Tender Coconut" },
+        { src: "images/Yellow Coconut.jpg", name: "Yellow Coconut" }
+      ]
+    }
+  ]
+},
+
+  // Other categories without subcards (Clothing, Handicraft, etc.)
+  "productsClothing&ApparalCard": { title: "Clothing & Apparal", subcategories: [] },
+  "productsHandicraftCard": { title: "Handicraft", subcategories: [] },
+  "productsHandlooms&JewelleriesCard": { title: "Handlooms & Jewelleries", subcategories: [] },
+  "productsCowDungCard": { title: "Cow Dung", subcategories: [] },
+  "productsMushroomsCard": {
+  title: "Mushrooms",
+  subcategories: [
+    {
+      title: "Mushrooms",
+      logo: "images/mushroom.png",
+      images: [
+        { src: "images/Button Mushroom.jpg", name: "Button Mushroom" },
+        { src: "images/Oyester Mushroom.jpg", name: "Oyster Mushroom" }
+      ]
+    }
+  ]
+},
+  "productsFertilizersCard": { title: "Fertilizers", subcategories: [] },
+  "productsGangajalCard": { title: "Gangajal", subcategories: [] },
+  "productsDrinksCard": { title: "Drinks", subcategories: [] },
+  "productsTulsiCard": { title: "Tulsi", subcategories: [] },
+  "productsInsenceStickCard": { title: "Insence Stick", subcategories: [] },
+  "productsSpicesCard": { title: "Spices", subcategories: [] }
+};
+
+  /* ==========================================================================
+     GENERIC ENGINE - you shouldn't need to touch anything below this line.
+     ========================================================================== */
+  const mainGrid = document.getElementById("productsMainGrid");
+  const subGrid = document.getElementById("productsSubGrid");
+  const galleryView = document.getElementById("productsGalleryView");
+  const galleryTitle = document.getElementById("galleryTitle");
+  const galleryContent = document.getElementById("galleryContent");
+  const backToSubGrid = document.getElementById("backToSubGrid");
+
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  const modalCaption = document.getElementById("modalCaption");
+  const closeBtn = modal.querySelector(".close");
+  let currentImages = [];
+  let currentIndex = 0;
+  let activeCategoryKey = null;
+
+  function showMainGrid() {
+    mainGrid.style.display = "grid";
+    subGrid.style.display = "none";
+    galleryView.style.display = "none";
+  }
+
+  function showSubGrid(categoryKey) {
+    const category = PRODUCTS_DATA[categoryKey];
+    if (!category) return;
+    activeCategoryKey = categoryKey;
+
+    subGrid.innerHTML = "";
+    category.subcategories.forEach((sub, subIndex) => {
+      const card = document.createElement("div");
+      card.className = "products-card";
+      card.innerHTML = `
+        <img src="${sub.logo}" alt="${sub.title} Logo" class="products-image" loading="lazy" decoding="async">
+        <h2 class="products-title">${sub.title}</h2>
+      `;
+      card.addEventListener("click", () => showGallery(categoryKey, subIndex));
+      subGrid.appendChild(card);
+    });
+
+    const backBtn = document.createElement("button");
+    backBtn.className = "back-button";
+    backBtn.textContent = "⬅ Back to Products";
+    backBtn.addEventListener("click", showMainGrid);
+    subGrid.appendChild(backBtn);
+
+    mainGrid.style.display = "none";
+    subGrid.style.display = "grid";
+    galleryView.style.display = "none";
+  }
+
+  function showGallery(categoryKey, subIndex) {
+    const category = PRODUCTS_DATA[categoryKey];
+    const sub = category.subcategories[subIndex];
+    if (!sub) return;
+
+    galleryTitle.textContent = sub.title + " Products";
+    galleryContent.innerHTML = "";
+    sub.images.forEach(img => {
+      const card = document.createElement("div");
+      card.className = "product-thumb-card";
+      card.innerHTML = `
+        <div class="product-thumb">
+          <div class="product-thumb-tags">
+            <span class="product-tag product-tag-verified"><i class="fa-solid fa-check"></i> Verified</span>
+            <span class="product-tag product-tag-export">Export Ready</span>
+          </div>
+          <img src="${img.src}" alt="${img.name}" data-name="${img.name}" data-category="${category.title}" data-sub="${sub.title}" loading="lazy" decoding="async">
+        </div>
+        <div class="product-thumb-bar">
+          <span class="product-thumb-name">${img.name}</span>
+        </div>
+      `;
+      galleryContent.appendChild(card);
+    });
+
+    // Details button (and the image itself) open the animated popup - full
+    // description, badges, and the health note only ever appear there,
+    // sliding up from beneath the image; nothing extra shows on the card.
+    galleryContent.querySelectorAll(".product-thumb-card").forEach(cardEl => {
+      const openThisProduct = () => {
+        currentImages = [...galleryContent.querySelectorAll(".product-thumb img")];
+        currentIndex = currentImages.indexOf(cardEl.querySelector(".product-thumb img"));
+        showImage();
+        openModal();
+      };
+      cardEl.querySelector(".product-thumb").addEventListener("click", openThisProduct);
+    });
+
+    subGrid.style.display = "none";
+    galleryView.style.display = "block";
+  }
+
+  backToSubGrid.onclick = () => {
+    galleryView.style.display = "none";
+    showSubGrid(activeCategoryKey);
+  };
+
+  Object.keys(PRODUCTS_DATA).forEach(categoryKey => {
+    const cardEl = document.getElementById(categoryKey);
+    if (!cardEl) return;
+    cardEl.addEventListener("click", () => showSubGrid(categoryKey));
+  });
+
+  function openModal() {
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden"; // stop background from scrolling
+  }
+  function closeModal() {
+    modal.style.display = "none";
+    document.body.style.overflow = ""; // restore normal scrolling
+  }
+
+  const modalDescription = document.getElementById("modalDescription");
+  const modalHealthNote = document.getElementById("modalHealthNote");
+  const modalOrderBtn = document.getElementById("modalOrderBtn");
+  const WHATSAPP_NUMBER = "916296898578"; // Tanushree Singha, Partner
+
+  // Rich, category-level detail used to describe every product - covers
+  // taste, health/use benefits, and typical trade use, keyed by the
+  // sub-category (falls back to the top-level category, then a generic
+  // default). This is deliberately per-category rather than per-product:
+  // with 168 named items, this keeps every single one factually grounded
+  // (no invented per-item nutrition numbers) while still reading as real
+  // detail rather than a one-line label.
+  const PRODUCT_CATEGORY_DETAILS = {
+    "Rice": {
+      tag: "Energy-Rich Staple",
+      taste: "a mild, comforting flavor with a texture that ranges from light and separate to soft and sticky depending on the variety",
+      benefits: "a wholesome source of carbohydrates for steady, everyday energy - naturally gluten-free and easy on digestion",
+      uses: "a kitchen staple for everyday meals as well as festive biryanis, risottos, and pilafs"
+    },
+    "Wheat": {
+      tag: "Whole-Grain Goodness",
+      taste: "a warm, nutty flavor that deepens once it's milled and baked",
+      benefits: "a good source of dietary fibre and slow-release energy, making it a solid everyday staple",
+      uses: "milled into flour for breads, rotis, and a wide range of bakery products"
+    },
+    "Corn": {
+      tag: "Naturally Sweet",
+      taste: "a naturally sweet, slightly buttery flavor with a satisfying bite",
+      benefits: "a good source of dietary fibre and antioxidants, and naturally gluten-free",
+      uses: "used fresh, milled, or processed across snacks, staples, and feed"
+    },
+    "Millet": {
+      tag: "Ancient Grain Nutrition",
+      taste: "an earthy, subtly nutty taste that takes on other flavors well",
+      benefits: "a nutrient-dense, high-fibre ancient grain valued for slow-digesting carbohydrates",
+      uses: "a versatile substitute for rice and wheat in porridges, flatbreads, and health foods"
+    },
+    "All Kinds of Daal": {
+      tag: "Protein-Rich Pulses",
+      taste: "a mild, earthy flavor that takes on spices and seasoning beautifully",
+      benefits: "an excellent plant-based source of protein and fibre for a balanced, everyday diet",
+      uses: "a kitchen essential for daals, soups, and curries across cuisines"
+    },
+    "Tea": {
+      tag: "Antioxidant-Rich",
+      taste: "a distinct aroma and flavor ranging from brisk and malty to delicate and floral, depending on the leaf",
+      benefits: "naturally rich in antioxidants, and a gentle, comforting everyday beverage",
+      uses: "brewed hot or cold as a daily beverage across households, cafes, and hospitality"
+    },
+    "Alloevera": {
+      tag: "Wellness & Skincare",
+      taste: "a mild, refreshing taste in its raw and juice forms",
+      benefits: "traditionally valued for skin care, hydration, and general wellness use",
+      uses: "used across cosmetics, wellness drinks, and traditional skincare preparations"
+    },
+    "Fruits": {
+      tag: "Vitamin-Rich & Fresh",
+      taste: "naturally sweet, juicy, and refreshing, picked and packed for peak flavor",
+      benefits: "a wholesome source of vitamins, natural sugars, and everyday hydration",
+      uses: "enjoyed fresh, juiced, or processed across retail and food service"
+    },
+    "Vegetables": {
+      tag: "Fibre-Rich & Fresh",
+      taste: "fresh, crisp, and full of natural flavor",
+      benefits: "a wholesome source of dietary fibre, vitamins, and minerals for a balanced diet",
+      uses: "a daily kitchen essential across households, restaurants, and food processing"
+    },
+    "Coconuts": {
+      tag: "Naturally Hydrating",
+      taste: "a naturally sweet, refreshing taste with a distinct tropical aroma",
+      benefits: "naturally hydrating with electrolytes, and a versatile source of healthy fats",
+      uses: "used fresh, as coconut water, or processed into oil, milk, and desiccated forms"
+    },
+    "Mushrooms": {
+      tag: "Nutrient-Rich & Fresh",
+      taste: "a mild, earthy flavor with a delicate, meaty texture",
+      benefits: "a low-calorie source of protein, fibre, and essential vitamins for a healthy diet",
+      uses: "used fresh or dried across culinary, health food, and food processing applications"
+    }
+  };
+  const DEFAULT_PRODUCT_DETAILS = {
+    tag: "Quality Assured",
+    taste: "a flavor and quality consistent with premium, export-grade sourcing",
+    benefits: "carefully selected for freshness, quality, and batch-to-batch consistency",
+    uses: "supplied to B2B buyers across our trade network"
+  };
+
+  // Builds both the fuller description paragraph and the quick badge row
+  // for a product, using its sub-category (falling back to category) to
+  // look up the right taste/health/use detail above.
+  function buildProductCopy(name, sub, cat) {
+    const d = PRODUCT_CATEGORY_DETAILS[sub] || PRODUCT_CATEGORY_DETAILS[cat] || DEFAULT_PRODUCT_DETAILS;
+    const description = `${name} brings ${d.taste} — ${d.benefits}.`;
+    return { description, badges: [d.tag, "Export Grade", "Quality Checked"] };
+  }
+
+  const productSlide = document.getElementById("productSlide");
+  const productSlideOverlay = document.getElementById("productSlideOverlay");
+  const productSlideBadges = document.getElementById("productSlideBadges");
+
+  // Shows the image+text for currentImages[currentIndex] as a slider
+  // transition: the photo slides/fades in first (from the right when
+  // moving to the next item, from the left when moving back, no
+  // direction on first open), and once that's under way the caption,
+  // description and Order Now button fade up on top of it a beat later -
+  // rather than everything just appearing stacked below the image at once.
+  function showImage(direction) {
+    const current = currentImages[currentIndex];
+    const productName = current.dataset.name;
+
+    modalImg.classList.remove("is-shown", "slide-from-left", "slide-from-right");
+    productSlideOverlay.classList.remove("is-shown");
+    if (direction === "prev") modalImg.classList.add("slide-from-left");
+    else modalImg.classList.add("slide-from-right");
+    void modalImg.offsetWidth; // force reflow so the removed/re-added classes actually retrigger the transition
+
+    modalImg.src = current.src;
+    modalImg.alt = productName;
+    modalCaption.textContent = productName;
+    const orderMessage = `Hi GLOBAL PRIME ORBIT, I'm interested in "${productName}". Could you share more details and pricing?`;
+    modalOrderBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderMessage)}`;
+    const copy = buildProductCopy(productName, current.dataset.sub, current.dataset.category);
+    modalDescription.textContent = copy.description;
+    productSlideBadges.innerHTML = copy.badges.map(b => `<span class="product-badge">${b}</span>`).join("");
+    modalHealthNote.textContent = `Maintain Your Health, Stay fit and fine with containing consumption of ${productName} product.`;
+
+    const revealSlide = () => {
+      requestAnimationFrame(() => {
+        modalImg.classList.add("is-shown");
+        setTimeout(() => productSlideOverlay.classList.add("is-shown"), 160);
+      });
+    };
+    modalImg.onload = revealSlide;
+    modalImg.onerror = revealSlide;
+    if (modalImg.complete) revealSlide();
+    else setTimeout(revealSlide, 600); // safety net in case load/error never fires
+  }
+
+  function showPrevImage() { currentIndex = (currentIndex-1+currentImages.length)%currentImages.length; showImage("prev"); }
+  function showNextImage() { currentIndex = (currentIndex+1)%currentImages.length; showImage("next"); }
+  closeBtn.onclick = () => { closeModal(); };
+
+  // Manual slide control: swipe/drag left or right on the image to move
+  // between products, in place of the old prev/next arrow buttons. Works
+  // with touch, mouse and pen via the Pointer Events API (one code path).
+  const MODAL_SWIPE_THRESHOLD = 40; // px
+  let modalPointerStartX = 0;
+  let modalPointerDown = false;
+  let modalActivePointerId = null;
+
+  modalImg.addEventListener("pointerdown", (e) => {
+    modalPointerDown = true;
+    modalActivePointerId = e.pointerId;
+    modalPointerStartX = e.clientX;
+  });
+
+  modalImg.addEventListener("pointerup", (e) => {
+    if (!modalPointerDown || e.pointerId !== modalActivePointerId) return;
+    modalPointerDown = false;
+    const dx = e.clientX - modalPointerStartX;
+    if (Math.abs(dx) > MODAL_SWIPE_THRESHOLD) {
+      if (dx < 0) showNextImage(); else showPrevImage();
+    }
+  });
+
+  modalImg.addEventListener("pointercancel", () => {
+    modalPointerDown = false;
+  });
+
+  // Safety net: clicking the dark background (not the image itself, and not
+  // the close control) also closes the popup - so there's always
+  // a way out even if the close icon is hard to tap on a small screen.
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Fully reset the Products section (close modal + any open gallery/sub-view)
+  // whenever a nav link is clicked, so navigation always lands cleanly.
+  function resetProductsSection() {
+    closeModal();
+    showMainGrid();
+  }
+
+  document.querySelectorAll("nav ul li a").forEach(link => {
+    link.addEventListener("click", resetProductsSection);
+  });
+
+  // Esc: 2nd way to go "back" — mirrors the back button, one screen at a time.
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (modal.style.display === "flex") {
+        closeModal();
+      } else if (galleryView.style.display === "block") {
+        backToSubGrid.onclick();
+      } else if (subGrid.style.display === "grid") {
+        showMainGrid();
+      }
+      return;
+    }
+    if (e.key==="ArrowLeft") showPrevImage();
+    if (e.key==="ArrowRight") showNextImage();
+  });
+
+  /* ------------------ Search (works across ALL categories, even closed ones) ------------------ */
+  const searchInput = document.getElementById("productSearch");
+  const searchResults = document.getElementById("searchResults");
+  const homeSearchInput = document.getElementById("homeProductSearch");
+  const homeSearchResults = document.getElementById("homeSearchResults");
+
+  // Flatten every product image across every category/sub-category once.
+  const ALL_PRODUCT_IMAGES = [];
+  Object.values(PRODUCTS_DATA).forEach(category => {
+    category.subcategories.forEach(sub => {
+      sub.images.forEach(img => {
+        ALL_PRODUCT_IMAGES.push({ src: img.src, name: img.name, category: category.title, sub: sub.title });
+      });
+    });
+  });
+
+  function renderSearchResults(query, resultsEl) {
+    resultsEl.innerHTML = "";
+
+    if (!query) {
+      resultsEl.classList.remove("active");
+      return;
+    }
+
+    const matches = ALL_PRODUCT_IMAGES.filter(img => img.name.toLowerCase().includes(query));
+
+    if (matches.length === 0) {
+      resultsEl.classList.remove("active");
+      return;
+    }
+
+    resultsEl.classList.add("active");
+
+    matches.forEach(img => {
+      const item = document.createElement("div");
+      item.className = "search-result-item";
+
+      const thumb = document.createElement("img");
+      thumb.src = img.src;
+      thumb.alt = img.name;
+
+      const caption = document.createElement("p");
+      caption.textContent = img.name;
+
+      item.appendChild(thumb);
+      item.appendChild(caption);
+      resultsEl.appendChild(item);
+
+      item.addEventListener("click", () => {
+        // Build lightweight fake <img>-like objects for the modal navigator
+        currentImages = matches.map(m => {
+          const fake = new Image();
+          fake.src = m.src;
+          fake.dataset.name = m.name;
+          fake.dataset.category = m.category;
+          fake.dataset.sub = m.sub;
+          return fake;
+        });
+        currentIndex = matches.indexOf(img);
+        showImage();
+        openModal();
+      });
+    });
+  }
+
+  searchInput.addEventListener("input", () => {
+    renderSearchResults(searchInput.value.trim().toLowerCase(), searchResults);
+  });
+
+  // Home-screen search bar: mirrors the Products-section search so people
+  // can find a product straight from the hero without scrolling first.
+  if (homeSearchInput) {
+    homeSearchInput.addEventListener("input", () => {
+      renderSearchResults(homeSearchInput.value.trim().toLowerCase(), homeSearchResults);
+    });
+  }
+</script>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-top">
+      <!-- Brand block -->
+      <div class="footer-brand">
+        <div class="logo-group footer-logo-group">
+          <img src="images/logo.jpeg" alt="GLOBAL PRIME ORBIT logo" class="site-logo-img" width="46" height="46" loading="lazy" decoding="async">
+          <div class="logo-text">
+            <span class="logo">GLOBAL PRIME ORBIT</span>
+            <span class="logo-subtitle">IMPORT EXPORT TRADE</span>
+          </div>
+        </div>
+        <p class="footer-tagline">Products Worldwide with Quality &amp; Trust</p>
+        <p class="footer-tagline">Flourishing with Global Trade</p>
+      </div>
+
+      <!-- Footer menu (mirrors header nav) -->
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#export-process">Process</a></li>
+          <li><a href="index.html#global-presence">Global Research</a></li>
+          <li><a href="leadership.html" target="_blank" rel="noopener">Leadership</a></li>
+          <li><a href="profile.html" target="_blank" rel="noopener">Profile</a></li>
+          <li><a href="product.html" target="_blank" rel="noopener">Product</a></li>
+          <li><a href="index.html#blog">Our Blog</a></li>
+          <li><a href="index.html#contact" class="footer-nav-quote">Request a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="social-icons">
+      <a href="https://www.linkedin.com" target="_blank" class="social linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.facebook.com" target="_blank" class="social facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com" target="_blank" class="social instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.twitter.com" target="_blank" class="social twitter" aria-label="Twitter / X"><i class="fab fa-twitter"></i></a>
+    </div>
+
+    <!-- Legal Links -->
+    <div class="footer-legal-links">
+      <a href="#" id="openPrivacyPolicy">Privacy Policy</a>
+      <span class="legal-dot">•</span>
+      <a href="#" id="openTerms">Terms &amp; Conditions</a>
+      <span class="legal-dot">•</span>
+      <a href="#" id="openCookiePolicy">Cookie Policy</a>
+      <span class="legal-dot">•</span>
+      <a href="mailto:globalprimeorbit09@gmail.com">globalprimeorbit09@gmail.com</a>
+    </div>
+
+    <p>© 2026 GLOBAL PRIME ORBIT. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- Cookie Consent Banner -->
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
+  <button id="cookieBannerClose" class="cookie-banner-close" aria-label="Dismiss">&times;</button>
+  <p>🍪 We use cookies to improve your browsing experience, analyze site traffic, and personalize content. By continuing to use this site, you agree to our
+    <a href="#" id="cookieBannerPolicyLink">Cookie Policy</a>.
+  </p>
+  <div class="cookie-banner-actions">
+    <button id="cookieDecline" class="cookie-btn cookie-decline">Decline</button>
+    <button id="cookieAccept" class="cookie-btn cookie-accept">Accept All</button>
+  </div>
+</div>
+
+<!-- Legal Modal (Privacy Policy / Terms & Conditions / Cookie Policy) -->
+<div id="legalModal" class="legal-modal" style="display:none;">
+  <div class="legal-modal-box">
+    <button class="legal-modal-close" id="legalModalClose" aria-label="Close">&times;</button>
+    <h2 id="legalModalTitle">Privacy Policy</h2>
+    <div id="legalModalBody" class="legal-modal-body"></div>
+  </div>
+</div>
+
+<script>
+  /* ---------------- Legal content ---------------- */
+  const LEGAL_CONTENT = {
+    privacy: {
+      title: "Privacy Policy",
+      body: `
+        <p><em>Last updated: July 2026</em></p>
+        <p>GLOBAL PRIME ORBIT ("we", "us", "our") respects your privacy. This policy explains what information we collect through this website and how we use it.</p>
+        <h3>Information We Collect</h3>
+        <p>We may collect details you voluntarily share with us, such as your name, email address, phone number, and any message you send through our contact form, WhatsApp, or newsletter sign-up.</p>
+        <h3>How We Use Your Information</h3>
+        <p>We use this information solely to respond to enquiries, process quote requests, send trade updates you've subscribed to, and improve our services. We do not sell your personal data to third parties.</p>
+        <h3>Data Security</h3>
+        <p>We take reasonable technical and organizational measures to protect your information from unauthorized access, alteration, or disclosure.</p>
+        <h3>Third-Party Links</h3>
+        <p>Our site may link to external sites (e.g. WhatsApp, Google Maps). We are not responsible for the privacy practices of those third parties.</p>
+        <h3>Contact Us</h3>
+        <p>For any privacy-related questions, email us at <a href="mailto:globalprimeorbit09@gmail.com">globalprimeorbit09@gmail.com</a>.</p>
+      `
+    },
+    terms: {
+      title: "Terms &amp; Conditions",
+      body: `
+        <p><em>Last updated: July 2026</em></p>
+        <p>By accessing and using this website, you agree to be bound by the following terms and conditions.</p>
+        <h3>Use of Website</h3>
+        <p>Content on this site is provided for general information about GLOBAL PRIME ORBIT's products and services and does not constitute a binding offer. Product availability, pricing, and specifications are confirmed only upon a formal quote or order.</p>
+        <h3>Intellectual Property</h3>
+        <p>All logos, text, images, and content on this website are the property of GLOBAL PRIME ORBIT unless otherwise credited, and may not be reproduced without permission.</p>
+        <h3>Orders &amp; Trade Terms</h3>
+        <p>All import/export transactions are subject to separate written agreements, purchase orders, and applicable international trade regulations and incoterms agreed between the parties.</p>
+        <h3>Limitation of Liability</h3>
+        <p>We strive for accuracy on this site but are not liable for any indirect or consequential loss arising from the use of this website.</p>
+        <h3>Governing Law</h3>
+        <p>These terms are governed by the laws of India, with courts in West Bengal having jurisdiction.</p>
+      `
+    },
+    cookies: {
+      title: "Cookie Policy",
+      body: `
+        <p><em>Last updated: July 2026</em></p>
+        <p>This website uses cookies and similar technologies to enhance your browsing experience.</p>
+        <h3>What Are Cookies</h3>
+        <p>Cookies are small text files stored on your device that help websites remember information about your visit.</p>
+        <h3>Types of Cookies We Use</h3>
+        <p><strong>Essential cookies</strong> — required for core site functionality.<br>
+        <strong>Analytics cookies</strong> — help us understand how visitors use our site so we can improve it.<br>
+        <strong>Preference cookies</strong> — remember choices you've made, such as your cookie consent.</p>
+        <h3>Managing Cookies</h3>
+        <p>You can control or delete cookies through your browser settings at any time. Disabling cookies may affect some site functionality.</p>
+        <h3>Contact Us</h3>
+        <p>Questions about our cookie use can be sent to <a href="mailto:globalprimeorbit09@gmail.com">globalprimeorbit09@gmail.com</a>.</p>
+      `
+    }
+  };
+
+  const legalModal = document.getElementById("legalModal");
+  const legalModalTitle = document.getElementById("legalModalTitle");
+  const legalModalBody = document.getElementById("legalModalBody");
+
+  function openLegalModal(key) {
+    const data = LEGAL_CONTENT[key];
+    legalModalTitle.innerHTML = data.title;
+    legalModalBody.innerHTML = data.body;
+    legalModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+  function closeLegalModal() {
+    legalModal.style.display = "none";
+    document.body.style.overflow = "";
+  }
+
+  document.getElementById("openPrivacyPolicy").addEventListener("click", (e) => { e.preventDefault(); openLegalModal("privacy"); });
+  document.getElementById("openTerms").addEventListener("click", (e) => { e.preventDefault(); openLegalModal("terms"); });
+  document.getElementById("openCookiePolicy").addEventListener("click", (e) => { e.preventDefault(); openLegalModal("cookies"); });
+  document.getElementById("cookieBannerPolicyLink").addEventListener("click", (e) => { e.preventDefault(); openLegalModal("cookies"); });
+  document.getElementById("legalModalClose").addEventListener("click", closeLegalModal);
+  legalModal.addEventListener("click", (e) => { if (e.target === legalModal) closeLegalModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && legalModal.style.display === "flex") closeLegalModal(); });
+
+  /* ---------------- Cookie consent banner ---------------- */
+  const cookieBanner = document.getElementById("cookieBanner");
+  const cookieChoice = localStorage.getItem("gpoCookieConsent");
+  if (!cookieChoice) {
+    setTimeout(() => cookieBanner.classList.add("show"), 800);
+  }
+  document.getElementById("cookieAccept").addEventListener("click", () => {
+    localStorage.setItem("gpoCookieConsent", "accepted");
+    cookieBanner.classList.remove("show");
+  });
+  document.getElementById("cookieDecline").addEventListener("click", () => {
+    localStorage.setItem("gpoCookieConsent", "declined");
+    cookieBanner.classList.remove("show");
+  });
+  document.getElementById("cookieBannerClose").addEventListener("click", () => {
+    localStorage.setItem("gpoCookieConsent", "declined");
+    cookieBanner.classList.remove("show");
+  });
+
+</script>
+
+
+<!-- Script for Active Link Highlight -->
+<script>
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll("nav ul li a");
+
+  // IntersectionObserver instead of a scroll listener: the browser only
+  // notifies us when a section crosses the line, instead of us reading
+  // layout (offsetTop) on every single scroll pixel - which was forcing
+  // a layout recalculation continuously and was the main cause of scroll
+  // lag, especially on phones.
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.getAttribute("id");
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+      });
+    });
+  }, { rootMargin: "-120px 0px -70% 0px" });
+
+  sections.forEach(section => navObserver.observe(section));
+</script>
+
+<!-- Script for scroll-reveal (sections fade + slide up into view, whether the
+     user scrolls naturally or a nav-link click smooth-scrolls the page
+     there). Runs via IntersectionObserver for every section, in every
+     browser - including ones that support native CSS scroll-driven
+     animations (animation-timeline: view()). That native approach was
+     dropped: most sections below also use content-visibility: auto for
+     scroll performance, and a scroll-driven animation can't reliably
+     measure a section's scroll progress while the browser is skipping
+     its layout until it's near the viewport - so the animation would
+     silently never play. IntersectionObserver has no such dependency and
+     behaves the same on desktop and mobile. -->
+<script>
+  function playReveal(el) {
+    // Two rAFs guarantee the browser has actually painted the hidden
+    // (opacity:0 / translateY) state at least once before we flip the
+    // class. Without this, a section that's already in view the instant
+    // the page opens (like the hero) can have its "is-visible" class
+    // applied in the same frame it's created in - so the browser never
+    // paints anything to transition *from*, and it just appears static
+    // instead of animating up. This is what makes the very first section
+    // animate immediately when the site opens, not just on later scroll.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.classList.add("is-visible");
+        // Dropping will-change once the transition ends frees up the GPU
+        // layer/memory the browser reserved for it - on a page this long,
+        // keeping ~19 sections' worth of layers alive after they've
+        // already animated in is unnecessary overhead, and it's what
+        // mobile devices in particular have the least headroom for.
+        el.addEventListener("transitionend", () => {
+          el.style.willChange = "auto";
+        }, { once: true });
+      });
+    });
+  }
+
+  // Hero (video-slideshow + home) always fades/slides in the moment the
+  // page loads, since it's already inside the viewport at load - there's
+  // no scrolling for an observer to react to yet.
+  document.querySelectorAll(".hero-load").forEach(playReveal);
+
+  const revealEls = document.querySelectorAll(".reveal-up:not(.hero-load)");
+
+  // rootMargin's bottom value is positive on purpose: it grows the
+  // trigger zone downward past the actual viewport edge, so a section
+  // starts (and finishes) animating in slightly *before* it scrolls into
+  // view rather than while the user is already looking at it. On slower
+  // mobile devices that lead time is what stops images/logos inside a
+  // section from visibly "popping in late" after you've already scrolled
+  // to them.
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      playReveal(entry.target);
+      revealObserver.unobserve(entry.target); // animate in once, not on every scroll
+    });
+  }, { threshold: 0, rootMargin: "0px 0px 120px 0px" });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
