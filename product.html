@@ -176,6 +176,7 @@
 
     <!-- Product gallery - filled in dynamically for whichever sub-card was clicked -->
     <section class="products-view" id="productsGalleryView" style="display:none;">
+      <button class="back-button back-button-top" id="backToSubGridTop">⬅ Back</button>
       <h2 id="galleryTitle">Products</h2>
       <div class="products-gallery" id="galleryContent"></div>
       <button class="back-button" id="backToSubGrid">⬅ Back</button>
@@ -496,6 +497,7 @@ const PRODUCTS_DATA = {
   const galleryTitle = document.getElementById("galleryTitle");
   const galleryContent = document.getElementById("galleryContent");
   const backToSubGrid = document.getElementById("backToSubGrid");
+  const backToSubGridTop = document.getElementById("backToSubGridTop");
 
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImage");
@@ -517,6 +519,13 @@ const PRODUCTS_DATA = {
     activeCategoryKey = categoryKey;
 
     subGrid.innerHTML = "";
+
+    const backBtnTop = document.createElement("button");
+    backBtnTop.className = "back-button back-button-top";
+    backBtnTop.textContent = "⬅ Back to Products";
+    backBtnTop.addEventListener("click", showMainGrid);
+    subGrid.appendChild(backBtnTop);
+
     category.subcategories.forEach((sub, subIndex) => {
       const card = document.createElement("div");
       card.className = "products-card";
@@ -585,6 +594,7 @@ const PRODUCTS_DATA = {
     galleryView.style.display = "none";
     showSubGrid(activeCategoryKey);
   };
+  backToSubGridTop.onclick = backToSubGrid.onclick;
 
   Object.keys(PRODUCTS_DATA).forEach(categoryKey => {
     const cardEl = document.getElementById(categoryKey);

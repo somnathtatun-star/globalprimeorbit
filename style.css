@@ -1037,6 +1037,11 @@ header nav ul li a.active {
   background: var(--saffron);
   color: var(--ink);
 }
+#productsPage .back-button-top {
+  margin-top: 0;
+  margin-bottom: 20px;
+  display: inline-block;
+}
 #productsPage .products-title {
   color: var(--text-on-paper);
   font-weight: 600;

@@ -681,6 +681,7 @@
 
     <!-- Product gallery - filled in dynamically for whichever sub-card was clicked -->
     <section class="products-view" id="productsGalleryView" style="display:none;">
+      <button class="back-button back-button-top" id="backToSubGridTop">⬅ Back</button>
       <h2 id="galleryTitle">Products</h2>
       <div class="products-gallery" id="galleryContent"></div>
       <button class="back-button" id="backToSubGrid">⬅ Back</button>
@@ -1003,6 +1004,7 @@ const PRODUCTS_DATA = {
   const galleryTitle = document.getElementById("galleryTitle");
   const galleryContent = document.getElementById("galleryContent");
   const backToSubGrid = document.getElementById("backToSubGrid");
+  const backToSubGridTop = document.getElementById("backToSubGridTop");
   const productsViewport = document.getElementById("productsViewport");
 
   // Scrolls the page back to the top of the Products section whenever the
@@ -1035,6 +1037,13 @@ const PRODUCTS_DATA = {
     activeCategoryKey = categoryKey;
 
     subGrid.innerHTML = "";
+
+    const backBtnTop = document.createElement("button");
+    backBtnTop.className = "back-button back-button-top";
+    backBtnTop.textContent = "⬅ Back to Products";
+    backBtnTop.addEventListener("click", showMainGrid);
+    subGrid.appendChild(backBtnTop);
+
     category.subcategories.forEach((sub, subIndex) => {
       const card = document.createElement("div");
       card.className = "products-card";
@@ -1105,6 +1114,7 @@ const PRODUCTS_DATA = {
     galleryView.style.display = "none";
     showSubGrid(activeCategoryKey);
   };
+  backToSubGridTop.onclick = backToSubGrid.onclick;
 
   Object.keys(PRODUCTS_DATA).forEach(categoryKey => {
     const cardEl = document.getElementById(categoryKey);
@@ -1576,7 +1586,7 @@ const PRODUCTS_DATA = {
     <p class="partners-intro">The people behind GLOBAL PRIME ORBIT, working directly with buyers and suppliers on every deal.</p>
     <div class="partners-grid">
       <div class="partner-card">
-        <div class="partner-avatar">TS</div>
+            <img src="images/partner1.jpg" alt="Tanushree Singha" class="partner-avatar" loading="lazy" decoding="async">
         <h3 class="partner-name">Tanushree Singha</h3>
         <p class="partner-role">Partner</p>
         <p class="partner-bio">Tanushree co-leads GLOBAL PRIME ORBIT, overseeing trade operations and client relationships to make sure every enquiry gets a fast, reliable response and every shipment meets our quality standards.</p>
@@ -1600,7 +1610,7 @@ const PRODUCTS_DATA = {
     <p class="profile-intro">A closer look at the two partners behind GLOBAL PRIME ORBIT and the roles they carry.</p>
     <div class="profile-grid">
       <div class="profile-card">
-        <img src="images/tanushree-singha.jpg" alt="Tanushree Singha" class="profile-photo" loading="lazy" decoding="async">
+        <img src="images/partner1.jpg" alt="Tanushree Singha" class="profile-photo" loading="lazy" decoding="async">
         <h3 class="profile-name">Tanushree Singha</h3>
         <p class="profile-role">Partner — Marketing &amp; Sales</p>
         <p class="profile-bio">Tanushree Singha is a founding partner of GLOBAL PRIME ORBIT and leads the company's entire marketing and sales function. She is the first point of contact for buyers reaching out from India, the UAE, Europe, the USA, and across the Asia Pacific region, and personally manages every enquiry from the first message through to a confirmed order. Tanushree built the company's outreach strategy from the ground up, developing the relationships with agro commodity growers, textile weavers, artisans, and jewellery makers that now form the backbone of the supplier network. She oversees pricing strategy, bulk quotations, and client negotiations, making sure every deal reflects fair value for both buyer and supplier. Her day-to-day work includes coordinating digital marketing, guiding the sales team, following up on export leads, and representing GLOBAL PRIME ORBIT at buyer meetings and trade enquiries. She is known among clients for her responsiveness, with quotations typically shared within 24 hours of a request — a standard she set and maintains personally. Tanushree works closely with the operations side of the business to ensure that sales commitments made to buyers translate into on-time shipments and accurate documentation. Beyond individual transactions, she also shapes the company's broader growth strategy, identifying new product categories and export markets worth pursuing. Her approach blends warmth with discipline, treating every client relationship as long-term rather than transactional. Clients and colleagues alike describe her as approachable, detail-oriented, and hands-on with every account she manages. She remains the primary point of contact for all sales and marketing matters at GLOBAL PRIME ORBIT.</p>
