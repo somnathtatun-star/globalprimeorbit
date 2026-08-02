@@ -832,28 +832,14 @@ header nav ul li a.active {
   text-align: center;
 }
 /* The panel that holds the main grid / sub grid / gallery while browsing
-   products. Fixed height + its own scrollbar means scrolling through a
-   long product gallery only moves content inside this box - the rest of
-   the page (and every other section) stays exactly where it is.
-   overscroll-behavior: contain stops that inner scroll from "spilling
-   over" into a page scroll once you hit the top/bottom of the box, so
-   nothing outside the panel ever shifts while you're browsing inside it. */
+   products. It now scrolls naturally with the rest of the page (no fixed
+   height / internal scrollbar), so the other sections are free to move
+   along with it instead of staying pinned in place while you browse. */
 #productsViewport {
-  max-height: min(680px, calc(100vh - 260px));
-  overflow-y: auto;
-  overscroll-behavior: contain;
   scroll-behavior: smooth;
   padding: 4px 10px 4px 4px;
   margin: 0 -10px 0 -4px;
 }
-#productsViewport::-webkit-scrollbar { width: 8px; }
-#productsViewport::-webkit-scrollbar-track { background: transparent; }
-#productsViewport::-webkit-scrollbar-thumb {
-  background: rgba(227,160,8,0.4);
-  border-radius: 999px;
-}
-#productsViewport::-webkit-scrollbar-thumb:hover { background: rgba(227,160,8,0.6); }
-#productsViewport { scrollbar-width: thin; scrollbar-color: rgba(227,160,8,0.4) transparent; }
 
 #productsPage .products-grid {
   display: grid;
@@ -1305,9 +1291,6 @@ header nav ul li a.active {
   #productsPage .products-inner-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  #productsViewport {
-    max-height: min(680px, calc(100vh - 220px));
-  }
 }
 @media (max-width: 600px) {
   #productsPage .products-grid {
@@ -1315,9 +1298,6 @@ header nav ul li a.active {
   }
   #productsPage .products-inner-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  #productsViewport {
-    max-height: min(560px, calc(100vh - 180px));
   }
   #productsPage .products-image { width: 46px; height: 46px; padding: 8px; }
   #productsPage .products-title { font-size: 0.9rem; }

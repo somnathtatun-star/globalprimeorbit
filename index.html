@@ -1005,12 +1005,13 @@ const PRODUCTS_DATA = {
   const backToSubGrid = document.getElementById("backToSubGrid");
   const productsViewport = document.getElementById("productsViewport");
 
-  // Scrolls the internal products panel back to its own top whenever the
+  // Scrolls the page back to the top of the Products section whenever the
   // view changes (category -> subcategory -> gallery, and back again).
   // Without this, switching views could leave the visitor stranded
-  // mid-scroll inside the panel, looking at nothing.
+  // mid-page-scroll, looking at nothing.
   function resetProductsScroll() {
-    if (productsViewport) productsViewport.scrollTop = 0;
+    const productsPage = document.getElementById("productsPage");
+    if (productsPage) productsPage.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   const modal = document.getElementById("imageModal");
