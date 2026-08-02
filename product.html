@@ -520,12 +520,6 @@ const PRODUCTS_DATA = {
 
     subGrid.innerHTML = "";
 
-    const backBtnTop = document.createElement("button");
-    backBtnTop.className = "back-button back-button-top";
-    backBtnTop.textContent = "⬅ Back to Products";
-    backBtnTop.addEventListener("click", showMainGrid);
-    subGrid.appendChild(backBtnTop);
-
     category.subcategories.forEach((sub, subIndex) => {
       const card = document.createElement("div");
       card.className = "products-card";
