@@ -2175,6 +2175,12 @@ header nav ul li a.active {
   justify-content: center;
   box-shadow: 0 8px 22px rgba(227,160,8,0.3);
 }
+/* When the avatar is a real photo (an <img>) instead of text initials,
+   crop it to fill the circle cleanly. */
+img.partner-avatar {
+  object-fit: cover;
+  border: 3px solid rgba(227,160,8,0.35);
+}
 .partner-name {
   color: var(--text-on-ink);
   font-size: 1.2rem;
