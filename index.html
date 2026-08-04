@@ -346,6 +346,55 @@
       startAutoplay();
     })();
   </script>
+  <!-- Product Showcase Marquee: two real product photos from each category
+       that has per-product photography in PRODUCTS_DATA (Grains, Pulses &
+       Cereals, Tea, Allovera, Fruits, Vegetables, Coconuts, Mushrooms),
+       sitting between the hero video slideshow and the Home section. Same
+       seamless two-set / translateX(-50%) marquee technique as the
+       trade-route strip, auto-scrolling right to left. -->
+  <section id="product-showcase" class="reveal-up product-showcase hero-load">
+    <p class="product-showcase-heading">Our Product Range</p>
+    <div class="product-showcase-marquee" aria-hidden="true">
+      <div class="product-showcase-track" id="productShowcaseTrack">
+        <div class="product-showcase-set">
+          <span class="showcase-item"><img src="images/Arborio Rice.jpg" alt="Arborio Rice" loading="eager" decoding="async"><span>Grains</span></span>
+          <span class="showcase-item"><img src="images/Sweet Corn.jpg" alt="Sweet Corn" loading="eager" decoding="async"><span>Grains</span></span>
+          <span class="showcase-item"><img src="images/Kidney Beans.jpg" alt="Kidney Beans" loading="lazy" decoding="async"><span>Pulses &amp; Cereals</span></span>
+          <span class="showcase-item"><img src="images/Red Lentils.jpg" alt="Red Lentils" loading="lazy" decoding="async"><span>Pulses &amp; Cereals</span></span>
+          <span class="showcase-item"><img src="images/Green Tea.jpg" alt="Green Tea" loading="lazy" decoding="async"><span>Tea</span></span>
+          <span class="showcase-item"><img src="images/Black Tea.jpg" alt="Black Tea" loading="lazy" decoding="async"><span>Tea</span></span>
+          <span class="showcase-item"><img src="images/Aloe Vera.jpg" alt="Aloe Vera" loading="lazy" decoding="async"><span>Allovera</span></span>
+          <span class="showcase-item"><img src="images/Red Aloe.jpg" alt="Red Aloe" loading="lazy" decoding="async"><span>Allovera</span></span>
+          <span class="showcase-item"><img src="images/Mango.jpg" alt="Mango" loading="lazy" decoding="async"><span>Fruits</span></span>
+          <span class="showcase-item"><img src="images/Strawberry.jpg" alt="Strawberry" loading="lazy" decoding="async"><span>Fruits</span></span>
+          <span class="showcase-item"><img src="images/Tomato.jpg" alt="Tomato" loading="lazy" decoding="async"><span>Vegetables</span></span>
+          <span class="showcase-item"><img src="images/Carrot.jpg" alt="Carrot" loading="lazy" decoding="async"><span>Vegetables</span></span>
+          <span class="showcase-item"><img src="images/Tender Coconut.jpg" alt="Tender Coconut" loading="lazy" decoding="async"><span>Coconuts</span></span>
+          <span class="showcase-item"><img src="images/Green Coconut.jpg" alt="Green Coconut" loading="lazy" decoding="async"><span>Coconuts</span></span>
+          <span class="showcase-item"><img src="images/Button Mushroom.jpg" alt="Button Mushroom" loading="lazy" decoding="async"><span>Mushrooms</span></span>
+          <span class="showcase-item"><img src="images/Oyester Mushroom.jpg" alt="Oyster Mushroom" loading="lazy" decoding="async"><span>Mushrooms</span></span>
+        </div>
+        <div class="product-showcase-set">
+          <span class="showcase-item"><img src="images/Arborio Rice.jpg" alt="" loading="lazy" decoding="async"><span>Grains</span></span>
+          <span class="showcase-item"><img src="images/Sweet Corn.jpg" alt="" loading="lazy" decoding="async"><span>Grains</span></span>
+          <span class="showcase-item"><img src="images/Kidney Beans.jpg" alt="" loading="lazy" decoding="async"><span>Pulses &amp; Cereals</span></span>
+          <span class="showcase-item"><img src="images/Red Lentils.jpg" alt="" loading="lazy" decoding="async"><span>Pulses &amp; Cereals</span></span>
+          <span class="showcase-item"><img src="images/Green Tea.jpg" alt="" loading="lazy" decoding="async"><span>Tea</span></span>
+          <span class="showcase-item"><img src="images/Black Tea.jpg" alt="" loading="lazy" decoding="async"><span>Tea</span></span>
+          <span class="showcase-item"><img src="images/Aloe Vera.jpg" alt="" loading="lazy" decoding="async"><span>Allovera</span></span>
+          <span class="showcase-item"><img src="images/Red Aloe.jpg" alt="" loading="lazy" decoding="async"><span>Allovera</span></span>
+          <span class="showcase-item"><img src="images/Mango.jpg" alt="" loading="lazy" decoding="async"><span>Fruits</span></span>
+          <span class="showcase-item"><img src="images/Strawberry.jpg" alt="" loading="lazy" decoding="async"><span>Fruits</span></span>
+          <span class="showcase-item"><img src="images/Tomato.jpg" alt="" loading="lazy" decoding="async"><span>Vegetables</span></span>
+          <span class="showcase-item"><img src="images/Carrot.jpg" alt="" loading="lazy" decoding="async"><span>Vegetables</span></span>
+          <span class="showcase-item"><img src="images/Tender Coconut.jpg" alt="" loading="lazy" decoding="async"><span>Coconuts</span></span>
+          <span class="showcase-item"><img src="images/Green Coconut.jpg" alt="" loading="lazy" decoding="async"><span>Coconuts</span></span>
+          <span class="showcase-item"><img src="images/Button Mushroom.jpg" alt="" loading="lazy" decoding="async"><span>Mushrooms</span></span>
+          <span class="showcase-item"><img src="images/Oyester Mushroom.jpg" alt="" loading="lazy" decoding="async"><span>Mushrooms</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- Home Section -->
  <section id="home" class="reveal-up home hero-load">
   <!-- Hero content -->
@@ -2278,6 +2327,7 @@ const PRODUCTS_DATA = {
     }
 
     setupMarquee("tradeRouteTrack");
+    setupMarquee("productShowcaseTrack");
   })();
 </script>
 

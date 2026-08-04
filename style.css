@@ -651,6 +651,80 @@ header nav ul li a.active {
   filter: none;
 }
 
+/* Product Showcase strip — sits between the hero video slideshow and Home.
+   One image from each of the 18 product-category boxes, auto-scrolling
+   right to left. Same seamless two-set / translateX(-50%) marquee
+   technique as the trade-route strip above. */
+.product-showcase {
+  background: var(--ink);
+  background-image: linear-gradient(110deg, rgba(32,50,92,1) 11.3%, rgba(9,14,26,1) 99.3%);
+  padding: 44px 0 50px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+.product-showcase-heading {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-soft);
+  opacity: 0.85;
+  margin: 0 0 26px;
+}
+.product-showcase-marquee {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  contain: layout paint;
+}
+.product-showcase-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: product-showcase-scroll 38s linear infinite;
+}
+.product-showcase-track.marquee-paused { animation-play-state: paused; }
+.product-showcase-set {
+  display: flex;
+  align-items: flex-start;
+  gap: 34px;
+  flex-shrink: 0;
+  padding-right: 34px;
+}
+@keyframes product-showcase-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.showcase-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 120px;
+  flex-shrink: 0;
+}
+.showcase-item img {
+  width: 92px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(227,160,8,0.35);
+}
+.showcase-item span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-soft);
+  text-align: center;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
 /* ===========================
    About Section
    =========================== */
@@ -1158,9 +1232,10 @@ header nav ul li a.active {
   z-index:2000;
 }
 
-/* Product slider: the photo shows in full (nothing cropped or covered),
-   and the name/description/CTA sit in their own panel directly below it -
-   so nothing about the image itself is ever hidden behind text. */
+/* Product slider: the image always fills a consistent square frame (same
+   treatment as the Mushroom thumbnails), so every product photo sits flush
+   against the frame's border with no empty gap above/below or to the sides -
+   and the name/description/CTA sit in their own panel directly below it. */
 .product-slide {
   position: relative;
   display: flex;
@@ -1173,18 +1248,14 @@ header nav ul li a.active {
   box-shadow: var(--shadow-md);
 }
 .modal-content {
-  /* width/height are intentionally "auto" (not 100%/fixed): the box must
-     hug the image's own aspect ratio. Forcing width:100% while capping
-     height with max-height made portrait/square photos (e.g. the
-     Mushroom shots) render inside a box wider than the image itself,
-     leaving visible background-colour "gap" on the sides (pillarboxing)
-     and reserving more vertical space than the photo actually needed -
-     which is what pushed the Order Now button below the fold on mobile. */
-  width: auto;
-  height: auto;
-  max-width: 100%;
+  /* Fixed square frame + object-fit:cover so the image always fills the
+     frame edge-to-edge, whatever its native aspect ratio - matching how
+     the Mushroom photos already looked, instead of leaving background
+     "gap" above/below (or to the sides) for other aspect ratios. */
+  width: 100%;
+  aspect-ratio: 1 / 1;
   max-height: 46vh;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
   margin: 0 auto;
   align-self: center;
@@ -2676,6 +2747,12 @@ img.partner-avatar {
   .trade-route-set { font-size: 0.72rem; gap: 10px; }
   .flag-icon { width: 22px; height: 15px; }
   .trade-route-track { animation-duration: 22s; }
+  .product-showcase-track { animation-duration: 26s; }
+  .product-showcase-heading { font-size: 0.68rem; letter-spacing: 0.16em; }
+  .showcase-item { width: 90px; gap: 8px; }
+  .showcase-item img { width: 66px; height: 66px; border-radius: 10px; }
+  .showcase-item span { font-size: 0.6rem; }
+  .product-showcase-set { gap: 24px; padding-right: 24px; }
   .regions-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .region-card { padding: 20px 10px; }
   .region-flag { width: 58px; height: 38px; }
